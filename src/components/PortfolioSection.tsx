@@ -31,11 +31,53 @@ const portfolioItems = [
     category: "Non-profit",
     image: "/lovable-uploads/cdaf56ff-1e92-469d-9782-8779d8d0b5e3.png",
     tags: ["Charity", "Brand", "Web"],
+  },
+  {
+    id: 5,
+    title: "Hamburg Banking",
+    category: "FinTech",
+    image: "/lovable-uploads/ecbe49bd-89c8-45a2-9567-8cb19574cc14.png",
+    tags: ["Banking", "UI/UX", "Dark Theme"],
+  },
+  {
+    id: 6,
+    title: "Analyx Social Media",
+    category: "SaaS",
+    image: "/lovable-uploads/3b30dfc1-f5e0-4da4-9bab-b2dc5e20b50d.png",
+    tags: ["Analytics", "Dashboard", "Web"],
+  },
+  {
+    id: 7,
+    title: "QuickStore E-commerce",
+    category: "E-commerce",
+    image: "/lovable-uploads/81439078-5641-41e3-ab47-9bd3397ff27b.png",
+    tags: ["Electronics", "Shop", "UI/UX"],
+  },
+  {
+    id: 8,
+    title: "Create Software Solutions",
+    category: "Web Design",
+    image: "/lovable-uploads/71afe6c7-556e-4ada-b77b-25668af67c5e.png",
+    tags: ["Corporate", "Software", "Business"],
+  },
+  {
+    id: 9,
+    title: "Halo AI Studio",
+    category: "Tech",
+    image: "/lovable-uploads/ef8c0c76-6a09-4725-bb0b-3d8e56d1f47c.png",
+    tags: ["AI", "Technology", "Modern"],
+  },
+  {
+    id: 10,
+    title: "Web3 Design Agency",
+    category: "Web Design",
+    image: "/lovable-uploads/a83133ef-be74-4fb1-a932-d6ec544aca1e.png",
+    tags: ["Web3", "Creative", "Modern"],
   }
 ];
 
 // Filter categories based on the new portfolio items
-const categories = ["All", "Web Design", "E-commerce", "Non-profit"];
+const categories = ["All", "Web Design", "E-commerce", "FinTech", "SaaS", "Tech", "Non-profit"];
 
 const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -74,7 +116,7 @@ const PortfolioSection = () => {
         </div>
 
         {/* Portfolio grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredItems.map((item) => (
             <div 
               key={item.id} 
