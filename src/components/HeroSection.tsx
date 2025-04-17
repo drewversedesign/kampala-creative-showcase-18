@@ -1,6 +1,7 @@
 import React from 'react';
 import { buttonVariants } from './ui/button';
 import { Link } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -8,7 +9,14 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-            Digital Solutions for Growing Brands
+            <span className="text-gradient bg-gradient-to-r from-drewverse-primary to-orange-400 bg-clip-text text-transparent">
+              Digital Solutions
+            </span>{' '}
+            <div className="inline-flex items-center gap-2">
+              for 
+              <Sparkles className="text-drewverse-primary w-8 h-8 animate-pulse" />
+            </div>{' '}
+            <span className="block md:inline text-gray-900">Growing Brands</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-[600px]">
             At DrewVerse Design, we transform your digital vision into powerful, engaging experiences that drive business growth.
