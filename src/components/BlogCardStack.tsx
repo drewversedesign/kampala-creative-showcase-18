@@ -1,15 +1,14 @@
 
-import React, { useState, useEffect, useRef, KeyboardEvent } from 'react';
-import { ArrowRight, Bookmark, BookmarkCheck } from 'lucide-react';
-import { cn } from '../lib/utils';
-import { springAnimation, getCardOpacity, getCardScale, getCardZIndex } from '../utils/cardAnimation';
+import React, { useRef, KeyboardEvent } from 'react';
 import { useSwipe } from '../hooks/use-swipe';
 import { useIsMobile } from '../hooks/use-mobile';
-import { SocialShareButtons } from './SocialShareButtons';
 import { useBookmarks } from '../hooks/use-bookmarks';
+import { useCardStack } from '../hooks/use-card-stack';
+import { BlogCard } from './BlogCard';
+import { BlogCardNavigation } from './BlogCardNavigation';
 import { toast } from '@/components/ui/sonner';
 
-interface BlogCard {
+interface BlogCardData {
   id: number;
   title: string;
   category: string;
@@ -17,7 +16,7 @@ interface BlogCard {
   description: string;
 }
 
-const blogData: BlogCard[] = [
+const blogData: BlogCardData[] = [
   {
     id: 1,
     title: "Web Design",
@@ -56,98 +55,25 @@ const blogData: BlogCard[] = [
 ];
 
 export default function BlogCardStack() {
-  const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
-  const [positions, setPositions] = useState<number[]>([]);
-  const [velocities, setVelocities] = useState<number[]>([]);
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  const animationRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  const { isBookmarked, toggleBookmark } = useBookmarks<BlogCard>('blog-bookmarks');
+  const { isBookmarked, toggleBookmark } = useBookmarks<BlogCardData>('blog-bookmarks');
   
-  // Initialize positions and velocities
-  useEffect(() => {
-    setPositions(blogData.map((_, i) => i - activeCardIndex));
-    setVelocities(blogData.map(() => 0));
-    
-    return () => {
-      if (animationRef.current !== null) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, []);
-
-  // Update positions when active card changes with enhanced animation
-  useEffect(() => {
-    setVelocities(blogData.map(() => 0)); // Reset velocities
-    setIsAnimating(true);
-    
-    // Start spring animation loop
-    const animate = () => {
-      let stillAnimating = false;
-      
-      setPositions(prevPositions => 
-        prevPositions.map((pos, i) => {
-          const targetPosition = i - activeCardIndex;
-          const newPos = springAnimation(pos, targetPosition, velocities[i]);
-          
-          // Check if this card is still animating
-          if (Math.abs(newPos - targetPosition) > 0.01) {
-            stillAnimating = true;
-          }
-          
-          return newPos;
-        })
-      );
-      
-      setVelocities(prevVelocities => 
-        prevVelocities.map((vel, i) => {
-          const targetPosition = i - activeCardIndex;
-          const force = (targetPosition - positions[i]) * 0.12; // Increased spring strength
-          return (vel + force) * 0.8; // Apply damping
-        })
-      );
-      
-      if (stillAnimating) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
-        setIsAnimating(false);
-      }
-    };
-    
-    animationRef.current = requestAnimationFrame(animate);
-    
-    return () => {
-      if (animationRef.current !== null) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [activeCardIndex]);
+  const { 
+    activeCardIndex, 
+    positions, 
+    isAnimating, 
+    goToNextCard, 
+    goToPrevCard, 
+    goToCard 
+  } = useCardStack(blogData.length);
 
   // Focus the container when component mounts
-  useEffect(() => {
+  React.useEffect(() => {
     if (containerRef.current) {
       containerRef.current.focus();
     }
   }, []);
-
-  const handleCardClick = (index: number) => {
-    if (!isAnimating) {
-      setActiveCardIndex(index);
-    }
-  };
-
-  const handleNextCard = () => {
-    if (!isAnimating) {
-      setActiveCardIndex((prevIndex) => (prevIndex + 1) % blogData.length);
-    }
-  };
-
-  const handlePrevCard = () => {
-    if (!isAnimating) {
-      setActiveCardIndex((prevIndex) => (prevIndex - 1 + blogData.length) % blogData.length);
-    }
-  };
 
   // Handle keyboard navigation
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -157,27 +83,25 @@ export default function BlogCardStack() {
       case 'ArrowRight':
       case 'ArrowDown':
         e.preventDefault();
-        handleNextCard();
+        goToNextCard();
         break;
       case 'ArrowLeft':
       case 'ArrowUp':
         e.preventDefault();
-        handlePrevCard();
+        goToPrevCard();
         break;
       case 'Home':
         e.preventDefault();
-        setActiveCardIndex(0);
+        goToCard(0);
         break;
       case 'End':
         e.preventDefault();
-        setActiveCardIndex(blogData.length - 1);
+        goToCard(blogData.length - 1);
         break;
       case 'Enter':
       case ' ': // Space key
         e.preventDefault();
-        // If focused on a dot, change to that card
-        // Otherwise, go to next card
-        handleNextCard();
+        goToNextCard();
         break;
       default:
         break;
@@ -187,13 +111,13 @@ export default function BlogCardStack() {
   // Configure swipe handlers with enhanced velocity feedback
   const { onTouchStart, onTouchMove, onTouchEnd, velocity } = useSwipe(
     {
-      onSwipeLeft: handleNextCard,
-      onSwipeRight: handlePrevCard
+      onSwipeLeft: goToNextCard,
+      onSwipeRight: goToPrevCard
     }, 
     {
-      threshold: 30, // Lower threshold for more responsive swiping
-      preventDefaultTouchmove: false, // Allow scrolling on mobile
-      velocityMultiplier: 1.2 // Slightly increase velocity impact
+      threshold: 30,
+      preventDefaultTouchmove: false,
+      velocityMultiplier: 1.2
     }
   );
 
@@ -241,10 +165,10 @@ export default function BlogCardStack() {
           aria-roledescription="carousel"
           {...touchProps}
         >
-          {/* Previous button for keyboard navigation, visually hidden */}
+          {/* Screen reader navigation buttons */}
           <button 
             className="sr-only"
-            onClick={handlePrevCard}
+            onClick={goToPrevCard}
             aria-label="Previous blog post"
           >
             Previous
@@ -252,160 +176,36 @@ export default function BlogCardStack() {
 
           {/* Card Stack */}
           <div className="absolute inset-0 flex items-center justify-center">
-            {blogData.map((card, index) => {
-              const position = positions[index] || index - activeCardIndex;
-              const isActive = index === activeCardIndex;
-              const opacity = getCardOpacity(position);
-              const scale = getCardScale(position);
-              const zIndex = getCardZIndex(isActive, position);
-              
-              // Calculate transform based on position with added velocity for more natural feel
-              let translateX = `${position * 40 + (isActive ? velocity.x * 5 : 0)}%`;
-              
-              // Rotation effect based on position
-              let rotation = position * -2; // slight rotation based on position
-              
-              return (
-                <div
-                  key={card.id}
-                  className={cn(
-                    "absolute w-full max-w-md transition-all duration-500 ease-out",
-                    isActive ? "cursor-pointer" : "pointer-events-none",
-                    isAnimating ? "animate-in" : ""
-                  )}
-                  style={{
-                    transform: `translateX(${translateX}) scale(${scale}) rotate(${rotation}deg)`,
-                    opacity,
-                    zIndex,
-                    transition: isAnimating 
-                      ? 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease-out' 
-                      : 'none'
-                  }}
-                  onClick={() => isActive && handleNextCard()}
-                  role={isActive ? "button" : "presentation"}
-                  aria-hidden={!isActive}
-                  aria-label={isActive ? `Current blog post: ${card.title}. Press Enter to view next post.` : undefined}
-                >
-                  <div 
-                    className={cn(
-                      "rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ease-in-out h-full",
-                      isActive ? 
-                        "bg-gradient-to-br from-orange-500 to-red-500 text-white ring-2 ring-orange-400 hover:scale-105" : 
-                        "bg-gray-800 text-gray-400 filter grayscale"
-                    )}
-                  >
-                    <div className="p-6 pb-4 flex justify-between items-start">
-                      <div>
-                        <div className="text-xs uppercase tracking-wide mb-1">
-                          {card.category}
-                        </div>
-                        <h3 className={cn(
-                          "text-2xl font-bold mb-2",
-                          isActive ? "text-white" : "text-gray-300"
-                        )}>
-                          {card.title}
-                        </h3>
-                      </div>
-                      
-                      {isActive && (
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={(e) => handleToggleBookmark(e, card.id)}
-                            className={cn(
-                              "w-8 h-8 flex items-center justify-center rounded-full transition-all",
-                              isBookmarked(card.id) 
-                                ? "bg-orange-600 text-white" 
-                                : "bg-white/10 text-white hover:bg-white/20"
-                            )}
-                            aria-label={isBookmarked(card.id) ? "Remove from bookmarks" : "Add to bookmarks"}
-                          >
-                            {isBookmarked(card.id) ? (
-                              <BookmarkCheck size={16} strokeWidth={2.5} />
-                            ) : (
-                              <Bookmark size={16} strokeWidth={2.5} />
-                            )}
-                          </button>
-                          
-                          <SocialShareButtons 
-                            title={card.title} 
-                            description={card.description} 
-                          />
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="h-[1px] bg-gradient-to-r from-transparent via-current to-transparent opacity-20 my-4"></div>
-                    
-                    <div className="px-6 pb-6 space-y-4">
-                      <p className={cn(
-                        "text-sm",
-                        isActive ? "text-white/90" : "text-gray-400"
-                      )}>
-                        {card.description}
-                      </p>
-                      
-                      <div className="relative overflow-hidden rounded-lg h-48">
-                        <img 
-                          src={card.image} 
-                          alt={`${card.title} illustration`}
-                          className={cn(
-                            "w-full h-full object-cover object-center transform transition-transform",
-                            isActive ? "hover:scale-110 duration-700" : ""
-                          )}
-                        />
-                      </div>
-                      
-                      <div className={cn(
-                        "flex justify-end mt-4",
-                        isActive ? "opacity-100" : "opacity-60"
-                      )}>
-                        <div className={cn(
-                          "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300",
-                          isActive ? 
-                            "bg-white text-orange-500 hover:bg-orange-100" : 
-                            "bg-gray-700 text-gray-400"
-                        )}>
-                          <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {blogData.map((card, index) => (
+              <BlogCard
+                key={card.id}
+                card={card}
+                position={positions[index] || index - activeCardIndex}
+                isActive={index === activeCardIndex}
+                isAnimating={isAnimating}
+                velocityX={velocity.x}
+                isBookmarked={isBookmarked}
+                onToggleBookmark={handleToggleBookmark}
+                onClick={goToNextCard}
+              />
+            ))}
           </div>
           
-          {/* Next button for keyboard navigation, visually hidden */}
+          {/* Screen reader next button */}
           <button 
             className="sr-only"
-            onClick={handleNextCard}
+            onClick={goToNextCard}
             aria-label="Next blog post"
           >
             Next
           </button>
           
           {/* Navigation Dots */}
-          <div 
-            className="absolute bottom-0 left-0 right-0 flex justify-center space-x-2"
-            role="tablist"
-            aria-label="Select a blog post"
-          >
-            {blogData.map((card, index) => (
-              <button
-                key={index}
-                onClick={() => handleCardClick(index)}
-                className={cn(
-                  "w-2.5 h-2.5 rounded-full transition-all duration-300",
-                  index === activeCardIndex ? 
-                    "bg-orange-500 w-8" : 
-                    "bg-gray-600 hover:bg-gray-500"
-                )}
-                aria-label={`Go to blog post ${index + 1}: ${card.title}`}
-                aria-selected={index === activeCardIndex}
-                role="tab"
-              />
-            ))}
-          </div>
+          <BlogCardNavigation 
+            cards={blogData}
+            activeIndex={activeCardIndex}
+            onSelect={goToCard}
+          />
         </div>
       </div>
     </div>
