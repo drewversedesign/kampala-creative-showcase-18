@@ -11,11 +11,13 @@ import { blogPosts } from '../data/blogData';
 import { toast } from '@/components/ui/sonner';
 import { BlogCardData } from '../data/types';
 
-const blogCardData: BlogCardData[] = blogPosts.map((post, index) => ({
+const blogCardData = blogPosts.map((post, index) => ({
   id: index,
   title: post.title,
-  excerpt: post.excerpt,
   category: post.category,
+  image: post.image,
+  description: post.excerpt,
+  excerpt: post.excerpt,
   date: post.date,
   readTime: post.readTime,
   imageUrl: post.image
