@@ -4,9 +4,71 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ScrollToTopOnMount from '@/components/ScrollToTopOnMount';
+import Navbar from '@/components/Navbar';
+import FooterSection from '@/components/FooterSection';
 
-// Mock data for projects (you can move this to a separate file later)
+// Updated projects data to match the IDs used in PortfolioSection
 const projectsData = [
+  {
+    id: 'hamburg-card',
+    title: 'Hamburg Card Platform',
+    description: 'Modern fintech solution for digital card management with secure payment processing and real-time transaction monitoring.',
+    image: '/lovable-uploads/897efdcc-660f-4a00-84cd-d5de39410e7c.png',
+    challenge: 'Building a secure, scalable card management system that integrates with multiple payment processors while maintaining strict security standards.',
+    solution: 'Implemented a microservices architecture with end-to-end encryption and comprehensive audit logging for all transactions.',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Docker', 'Stripe API'],
+    outcome: 'Successfully processed over 500,000 transactions in the first quarter with 99.99% uptime'
+  },
+  {
+    id: 'analyx-social',
+    title: 'Analyx Social Media Manager',
+    description: 'Comprehensive social media analytics and management platform for monitoring engagement across multiple platforms.',
+    image: '/lovable-uploads/2db1f571-8a36-49be-a5e0-f1d0bfa9b4f1.png',
+    challenge: 'Creating a unified dashboard that pulls real-time data from multiple social media APIs with varying rate limits and data structures.',
+    solution: 'Developed a robust data normalization layer and implemented intelligent caching to handle API limitations.',
+    technologies: ['React', 'Redux', 'Express.js', 'PostgreSQL', 'GraphQL'],
+    outcome: 'Helped clients increase engagement by an average of 37% within three months'
+  },
+  {
+    id: 'quickstore',
+    title: 'QuickStore E-commerce',
+    description: 'Feature-rich e-commerce platform for electronics with advanced product filtering and recommendation engine.',
+    image: '/lovable-uploads/d1f028e5-6629-4146-8077-d6f1572b23d7.png',
+    challenge: 'Building a high-performance e-commerce system that could handle over 10,000 products with complex filtering options.',
+    solution: 'Implemented Elasticsearch for lightning-fast product search and used machine learning for personalized recommendations.',
+    technologies: ['Next.js', 'Elasticsearch', 'Python', 'TensorFlow', 'AWS'],
+    outcome: 'Increased conversion rates by 24% and average order value by 15%'
+  },
+  {
+    id: 'furniture-store',
+    title: 'Modern Furniture Store',
+    description: 'Elegant furniture e-commerce with virtual room planning and AR visualization capabilities.',
+    image: '/lovable-uploads/7b7167b7-701e-48c0-852a-7e36a09c938d.png',
+    challenge: 'Integrating 3D visualization and AR technology into a traditional e-commerce platform.',
+    solution: 'Developed custom WebGL renderers and mobile AR experiences that work seamlessly with the product catalog.',
+    technologies: ['React', 'Three.js', 'WebGL', 'ARKit', 'ARCore'],
+    outcome: 'Reduced return rates by 45% and increased customer satisfaction scores by 30%'
+  },
+  {
+    id: 'create-software',
+    title: 'Create Software Solutions',
+    description: 'Corporate software development company website with advanced case study visualization and customer portal.',
+    image: '/lovable-uploads/f2d11645-744f-4e98-9a1c-69261d0b2718.png',
+    challenge: 'Creating a high-performance, visually impressive website that also includes secure client access areas.',
+    solution: 'Built a JAMstack architecture with serverless functions for the client portal and dynamic content.',
+    technologies: ['Gatsby', 'Netlify', 'Serverless', 'Auth0', 'Contentful'],
+    outcome: 'Increased lead generation by 80% while reducing hosting costs by 60%'
+  },
+  {
+    id: 'halo-ai',
+    title: 'Halo AI Studio',
+    description: 'Modern AI solutions platform with beautiful UI/UX and interactive demos of AI capabilities.',
+    image: '/lovable-uploads/c72b53cf-2250-477a-b51e-5bf27640ee57.png',
+    challenge: 'Showcasing complex AI technology in an approachable, interactive way for non-technical users.',
+    solution: 'Created interactive demos with real-time AI processing that users can try directly in the browser.',
+    technologies: ['React', 'TensorFlow.js', 'WebAssembly', 'Node.js', 'WebGL'],
+    outcome: 'Doubled conversion rate for enterprise AI solution inquiries within two months'
+  },
   {
     id: 'ecommerce-platform',
     title: 'E-commerce Platform',
@@ -41,16 +103,21 @@ const projectsData = [
 
 const ProjectsPage = () => {
   const { id } = useParams();
-  const currentProject = projectsData.find(p => p.id === id) || projectsData[0];
+  // Find the project with the matching ID, or default to the first project if ID not found
+  const currentProject = id 
+    ? projectsData.find(p => p.id === id) || projectsData[0]
+    : projectsData[0];
+    
   const currentIndex = projectsData.findIndex(p => p.id === currentProject.id);
-  const prevProject = projectsData[currentIndex - 1];
-  const nextProject = projectsData[currentIndex + 1];
+  const prevProject = currentIndex > 0 ? projectsData[currentIndex - 1] : null;
+  const nextProject = currentIndex < projectsData.length - 1 ? projectsData[currentIndex + 1] : null;
 
   return (
     <div className="min-h-screen bg-white">
+      <Navbar />
       <ScrollToTopOnMount />
       
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-24">
         {/* Project Header */}
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -119,6 +186,8 @@ const ProjectsPage = () => {
           )}
         </div>
       </div>
+      
+      <FooterSection />
     </div>
   );
 };
