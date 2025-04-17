@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 // Blog post data with enhanced SEO information
-const blogPosts = [
+// Export the blogPosts array so it can be imported in other files
+export const blogPosts = [
   {
     id: 1,
     title: "Design Unleashed: Behind the Scenes of Our Creative Process",
