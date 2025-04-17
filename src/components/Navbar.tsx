@@ -2,10 +2,21 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { scrollToSection } from "../utils/smoothScroll";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +31,15 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavigation = (sectionId: string) => {
+    if (sectionId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollToSection(sectionId);
+    }
+    if (isMenuOpen) setIsMenuOpen(false);
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -29,7 +49,7 @@ const Navbar = () => {
       <div className="container-wide flex items-center justify-between">
         {/* Logo */}
         <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+          onClick={() => handleNavigation('home')} 
           className="flex items-center"
         >
           <span className="text-2xl font-bold text-drewverse-dark">
@@ -38,106 +58,109 @@ const Navbar = () => {
         </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          <button 
-            onClick={() => scrollToSection('services')} 
-            className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors"
-          >
-            Services
+        {!isMobile ? (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink 
+                  className={navigationMenuTriggerStyle()}
+                  onClick={() => handleNavigation('services')}
+                >
+                  Services
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <NavigationMenuLink 
+                  className={navigationMenuTriggerStyle()}
+                  onClick={() => handleNavigation('experience')}
+                >
+                  Experience
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <NavigationMenuLink 
+                  className={navigationMenuTriggerStyle()}
+                  onClick={() => handleNavigation('portfolio')}
+                >
+                  Portfolio
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <NavigationMenuLink 
+                  className={navigationMenuTriggerStyle()}
+                  onClick={() => handleNavigation('testimonials')}
+                >
+                  Testimonials
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <NavigationMenuLink 
+                  className={navigationMenuTriggerStyle()}
+                  onClick={() => handleNavigation('blog')}
+                >
+                  Blog
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <button 
+                  onClick={() => handleNavigation('contact')}
+                  className="btn-primary"
+                >
+                  Let's Talk
+                </button>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        ) : (
+          /* Mobile Menu Button */
+          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-          <button 
-            onClick={() => scrollToSection('experience')} 
-            className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors"
-          >
-            Experience
-          </button>
-          <button 
-            onClick={() => scrollToSection('portfolio')} 
-            className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors"
-          >
-            Portfolio
-          </button>
-          <button 
-            onClick={() => scrollToSection('testimonials')} 
-            className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors"
-          >
-            Testimonials
-          </button>
-          <button 
-            onClick={() => scrollToSection('blog')} 
-            className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors"
-          >
-            Blog
-          </button>
-          <button 
-            onClick={() => scrollToSection('contact')} 
-            className="btn-primary"
-          >
-            Let's Talk
-          </button>
-        </nav>
-
-        {/* Mobile Menu Button */}
-        <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        )}
       </div>
 
       {/* Mobile Navigation */}
-      {isMenuOpen && (
+      {isMenuOpen && isMobile && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg animate-fade-in z-40">
           <div className="container py-5 flex flex-col space-y-4">
             <button
               className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors py-2 text-left"
-              onClick={() => {
-                scrollToSection('services');
-                setIsMenuOpen(false);
-              }}
+              onClick={() => handleNavigation('services')}
             >
               Services
             </button>
             <button
               className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors py-2 text-left"
-              onClick={() => {
-                scrollToSection('experience');
-                setIsMenuOpen(false);
-              }}
+              onClick={() => handleNavigation('experience')}
             >
               Experience
             </button>
             <button
               className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors py-2 text-left"
-              onClick={() => {
-                scrollToSection('portfolio');
-                setIsMenuOpen(false);
-              }}
+              onClick={() => handleNavigation('portfolio')}
             >
               Portfolio
             </button>
             <button
               className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors py-2 text-left"
-              onClick={() => {
-                scrollToSection('testimonials');
-                setIsMenuOpen(false);
-              }}
+              onClick={() => handleNavigation('testimonials')}
             >
               Testimonials
             </button>
             <button
               className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors py-2 text-left"
-              onClick={() => {
-                scrollToSection('blog');
-                setIsMenuOpen(false);
-              }}
+              onClick={() => handleNavigation('blog')}
             >
               Blog
             </button>
             <button
               className="btn-primary inline-block text-center"
-              onClick={() => {
-                scrollToSection('contact');
-                setIsMenuOpen(false);
-              }}
+              onClick={() => handleNavigation('contact')}
             >
               Let's Talk
             </button>

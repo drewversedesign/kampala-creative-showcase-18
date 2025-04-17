@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
@@ -12,6 +12,11 @@ import CtaSection from '../components/CtaSection';
 import FooterSection from '../components/FooterSection';
 
 const Index: React.FC = () => {
+  // This ensures the page starts from the top with the navbar visible
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="overflow-x-hidden">
       <Navbar />
