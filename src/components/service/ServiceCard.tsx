@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface ServiceCardProps {
   title: string;
@@ -22,7 +23,7 @@ export function ServiceCard({
   
   return (
     <div 
-      className="group h-full rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ease-in-out"
+      className="group h-full rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ease-in-out hover:scale-105"
     >
       <div className={`h-full flex flex-col ${isOrangeBg ? 
         "bg-gradient-to-br from-orange-500 to-red-500 text-white ring-2 ring-orange-400" : 
@@ -37,7 +38,9 @@ export function ServiceCard({
               {title}
             </h3>
           </div>
-          <div className="flex">
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+            isOrangeBg ? "bg-white/20 text-white" : "bg-gray-700 text-gray-400"
+          }`}>
             {icon}
           </div>
         </div>
