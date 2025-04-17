@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
 import ExperienceSection from '../components/ExperienceSection';
-import BlogCardStack from '../components/BlogCardStack'; // Import the new component
+import BlogCardStack from '../components/BlogCardStack';
 import TestimonialsSection from '../components/TestimonialsSection';
 import WhyChooseUsSection from '../components/WhyChooseUsSection';
 import PortfolioSection from '../components/PortfolioSection';
@@ -19,7 +19,7 @@ const Index: React.FC = () => {
       <ServicesSection />
       <ExperienceSection />
       <PortfolioSection />
-      <BlogCardStack /> {/* Replace the old BlogSection with our new BlogCardStack */}
+      <BlogCardStack />
       <WhyChooseUsSection />
       <TestimonialsSection />
       <CtaSection />
