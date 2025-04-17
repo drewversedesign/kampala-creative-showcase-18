@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar } from 'lucide-react';
-import { blogPosts } from '../components/BlogSection';
+import { blogPosts } from '../data/blogData';
 import Navbar from '../components/Navbar';
 import FooterSection from '../components/FooterSection';
 import { Helmet } from 'react-helmet';
@@ -33,7 +33,7 @@ const Blog = () => {
                 key={post.id}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <Link to={`/blog/${post.slug}`}>
+                <Link to={`/blog/${post.id}`}>
                   <div className="relative overflow-hidden aspect-[16/10]">
                     <img 
                       src={post.image}

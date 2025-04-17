@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import FooterSection from '../components/FooterSection';
 import { useParams, useNavigate } from 'react-router-dom';
-import { blogPosts } from '../components/BlogSection';
+import { blogPosts } from '../data/blogData';
 import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet';
@@ -13,7 +13,7 @@ const BlogPost = () => {
   const navigate = useNavigate();
   
   // Find the blog post from the imported blogPosts array
-  const post = blogPosts.find((post) => post.slug === slug);
+  const post = blogPosts.find((post) => post.id === slug);
   
   if (!post) {
     return (
@@ -47,7 +47,6 @@ const BlogPost = () => {
       "name": post.author
     },
     "datePublished": post.date,
-    "keywords": post.keywords.join(", "),
     "publisher": {
       "@type": "Organization",
       "name": "DrewVerse Design",
@@ -63,7 +62,6 @@ const BlogPost = () => {
       <Helmet>
         <title>{post.title} | DrewVerse Design Blog</title>
         <meta name="description" content={post.excerpt} />
-        <meta name="keywords" content={post.keywords.join(", ")} />
         
         {/* Open Graph tags */}
         <meta property="og:title" content={post.title} />
@@ -118,29 +116,42 @@ const BlogPost = () => {
                   <User size={16} />
                   <span>{post.author}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Tag size={16} />
-                  <div className="flex flex-wrap gap-2">
-                    {post.keywords.map((keyword, index) => (
-                      <span 
-                        key={index}
-                        className="bg-gray-100 px-2 py-1 rounded-full text-xs"
-                      >
-                        {keyword}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </div>
               
               <div className="prose prose-lg prose-gray max-w-none">
-                <p className="text-gray-600 leading-relaxed">{post.excerpt}</p>
-                
-                {/* This is where you would add the full blog post content */}
-                <p className="text-gray-600 leading-relaxed mt-4">
-                  More detailed content for this blog post will be added soon. Stay tuned for regular updates 
-                  and insights from our design experts at DrewVerse Design.
-                </p>
+                {post.content.map((section, index) => {
+                  if (section.type === "introduction") {
+                    return (
+                      <p key={`intro-${index}`} className="text-gray-600 leading-relaxed text-lg font-medium">
+                        {section.text}
+                      </p>
+                    );
+                  } else if (section.type === "section") {
+                    return (
+                      <div key={`section-${index}`} className="mt-8">
+                        <h2 className="text-2xl font-bold mb-4">{section.title}</h2>
+                        <div className="text-gray-600 leading-relaxed whitespace-pre-wrap">
+                          {section.content}
+                        </div>
+                      </div>
+                    );
+                  } else if (section.type === "conclusion") {
+                    return (
+                      <div key={`conclusion-${index}`} className="mt-8 p-4 bg-gray-50 rounded-lg border-l-4 border-drewverse-primary">
+                        <h2 className="text-xl font-bold mb-2">Conclusion</h2>
+                        <p className="text-gray-600">{section.text}</p>
+                      </div>
+                    );
+                  } else if (section.type === "cta") {
+                    return (
+                      <div key={`cta-${index}`} className="mt-8 p-6 bg-drewverse-primary/10 rounded-xl text-center">
+                        <p className="text-drewverse-primary font-medium">{section.text}</p>
+                        <Button className="mt-4">Contact Us</Button>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </div>
           </article>

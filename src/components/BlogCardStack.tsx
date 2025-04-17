@@ -1,4 +1,3 @@
-
 import React, { KeyboardEvent } from 'react';
 import { useSwipe } from '../hooks/use-swipe';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -8,8 +7,19 @@ import { BlogCard } from './BlogCard';
 import { BlogCardNavigation } from './BlogCardNavigation';
 import { BlogSectionTitle } from './blog/BlogSectionTitle';
 import { BlogCardContainer } from './blog/BlogCardContainer';
-import { blogData, BlogCardData } from '../data/blogData';
+import { blogPosts } from '../data/blogData';
 import { toast } from '@/components/ui/sonner';
+import { BlogCardData } from '../data/types';
+
+const blogCardData: BlogCardData[] = blogPosts.map((post, index) => ({
+  id: index,
+  title: post.title,
+  excerpt: post.excerpt,
+  category: post.category,
+  date: post.date,
+  readTime: post.readTime,
+  imageUrl: post.image
+}));
 
 export default function BlogCardStack() {
   const isMobile = useIsMobile();
@@ -22,9 +32,8 @@ export default function BlogCardStack() {
     goToNextCard, 
     goToPrevCard, 
     goToCard 
-  } = useCardStack(blogData.length);
+  } = useCardStack(blogCardData.length);
 
-  // Handle keyboard navigation
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (isAnimating) return;
     
@@ -45,7 +54,7 @@ export default function BlogCardStack() {
         break;
       case 'End':
         e.preventDefault();
-        goToCard(blogData.length - 1);
+        goToCard(blogCardData.length - 1);
         break;
       case 'Enter':
       case ' ': // Space key
@@ -57,7 +66,6 @@ export default function BlogCardStack() {
     }
   };
 
-  // Configure swipe handlers with enhanced velocity feedback
   const { onTouchStart, onTouchMove, onTouchEnd, velocity } = useSwipe(
     {
       onSwipeLeft: goToNextCard,
@@ -70,7 +78,6 @@ export default function BlogCardStack() {
     }
   );
   
-  // Handle bookmark toggle
   const handleToggleBookmark = (e: React.MouseEvent, cardId: number) => {
     e.stopPropagation();
     toggleBookmark(cardId);
@@ -91,7 +98,7 @@ export default function BlogCardStack() {
           onTouchEnd={onTouchEnd}
           onKeyDown={handleKeyDown}
         >
-          {blogData.map((card, index) => (
+          {blogCardData.map((card, index) => (
             <BlogCard
               key={card.id}
               card={card}
@@ -107,7 +114,7 @@ export default function BlogCardStack() {
         </BlogCardContainer>
         
         <BlogCardNavigation 
-          cards={blogData}
+          cards={blogCardData}
           activeIndex={activeCardIndex}
           onSelect={goToCard}
         />
