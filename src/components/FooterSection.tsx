@@ -1,4 +1,3 @@
-
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Youtube, Send } from "lucide-react";
 import { useState } from "react";
 
@@ -114,7 +113,7 @@ const FooterSection = () => {
                 <input
                   type="text"
                   id="name"
-                  placeholder="John Doe"
+                  placeholder="Elena Rodriguez"
                   className="bg-white/10 text-white placeholder:text-white/50 rounded-lg py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-drewverse-primary/50"
                 />
               </div>
@@ -124,7 +123,7 @@ const FooterSection = () => {
                 <input
                   type="email"
                   id="email"
-                  placeholder="john@example.com"
+                  placeholder="elena.rodriguez@professionaldesign.com"
                   className="bg-white/10 text-white placeholder:text-white/50 rounded-lg py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-drewverse-primary/50"
                 />
               </div>
