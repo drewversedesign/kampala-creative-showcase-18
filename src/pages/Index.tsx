@@ -2,10 +2,10 @@
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
+import PortfolioSection from "../components/PortfolioSection";
 import ServicesSection from "../components/ServicesSection";
 import ExperienceSection from "../components/ExperienceSection";
 import WhyChooseUsSection from "../components/WhyChooseUsSection";
-import PortfolioSection from "../components/PortfolioSection";
 import TestimonialsSection from "../components/TestimonialsSection";
 import CtaSection from "../components/CtaSection";
 import BlogSection from "../components/BlogSection";
@@ -34,10 +34,10 @@ const Index = () => {
       
       <main className="flex-grow">
         <HeroSection />
+        <PortfolioSection />
         <ServicesSection />
         <ExperienceSection />
         <WhyChooseUsSection />
-        <PortfolioSection />
         <TestimonialsSection />
         <CtaSection />
         <BlogSection />
