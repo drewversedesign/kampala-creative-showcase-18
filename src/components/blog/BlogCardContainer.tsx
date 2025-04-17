@@ -1,5 +1,5 @@
 
-import React, { useRef, KeyboardEvent, ReactNode } from 'react';
+import React, { useRef, type KeyboardEvent, ReactNode } from 'react';
 
 interface BlogCardContainerProps {
   isMobile: boolean;
