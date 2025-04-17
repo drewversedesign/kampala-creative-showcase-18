@@ -10,10 +10,10 @@ const HeroSection = () => {
       <div className="container-wide grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="order-2 lg:order-1 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           <h1 className="heading-xl mb-6">
-            We Are <span className="text-gradient">DrewVerse Design</span>
+            <span className="text-gradient">Digital Design & Development</span> Studio
           </h1>
           <p className="text-xl text-drewverse-text/80 mb-8 max-w-xl">
-            Crafting Beautiful & Functional Digital Experiences for brands that want to make a lasting impression.
+            Based in Kampala, Uganda | 10+ Years of Exceptional Digital Experiences
           </p>
           <div className="flex flex-wrap gap-4">
             <button 
@@ -32,18 +32,13 @@ const HeroSection = () => {
           
           <div className="mt-12 flex items-center gap-8">
             <div>
-              <p className="text-3xl font-bold text-drewverse-primary">5+</p>
+              <p className="text-3xl font-bold text-drewverse-primary">10+</p>
               <p className="text-sm text-drewverse-text/70">Years Experience</p>
             </div>
             <div className="w-px h-12 bg-gray-200"></div>
             <div>
-              <p className="text-3xl font-bold text-drewverse-primary">60+</p>
-              <p className="text-sm text-drewverse-text/70">Projects Completed</p>
-            </div>
-            <div className="w-px h-12 bg-gray-200"></div>
-            <div>
-              <p className="text-3xl font-bold text-drewverse-primary">40+</p>
-              <p className="text-sm text-drewverse-text/70">Happy Clients</p>
+              <p className="text-3xl font-bold text-drewverse-primary">500+</p>
+              <p className="text-sm text-drewverse-text/70">Projects Delivered</p>
             </div>
           </div>
         </div>
@@ -51,7 +46,7 @@ const HeroSection = () => {
         <div className="order-1 lg:order-2 relative animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <div className="relative z-10 animate-scale-in">
             <img 
-              src="/public/lovable-uploads/b01057c4-3c82-4aa4-abc6-f0e575e97190.png" 
+              src="/public/lovable-uploads/4855fe53-09dc-4c21-9e07-3ef21384d89f.png" 
               alt="DrewVerse Design Team" 
               className="w-full h-auto rounded-2xl shadow-xl"
             />
@@ -63,8 +58,8 @@ const HeroSection = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold">Always Delivering</p>
-                  <p className="text-sm text-drewverse-text/70">Quality Results</p>
+                  <p className="font-semibold">5-Star Rated</p>
+                  <p className="text-sm text-drewverse-text/70">Digital Solutions</p>
                 </div>
               </div>
             </div>
@@ -79,3 +74,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
