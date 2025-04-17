@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { buttonVariants } from './ui/button';
 import { Link } from 'react-router-dom';
@@ -39,8 +40,8 @@ const HeroSection = () => {
         <div className="flex justify-center items-center">
           <div className="relative">
             <img 
-              src="/lovable-uploads/14ba41e3-b481-459c-918b-b18bcc20ac7c.png" 
-              alt="DrewVerse Design Digital Innovation" 
+              src="/lovable-uploads/f3a7c8f8-4cc6-4005-ac9c-347d76a16bdf.png" 
+              alt="DrewVerse Design Team Collaboration" 
               className="w-full max-w-[600px] h-auto rounded-lg shadow-lg object-cover relative z-10"
             />
             <div className="absolute inset-0 border-4 border-orange-500 rounded-lg z-0" style={{animation: 'border-pulse 3s ease-in-out infinite'}}></div>
