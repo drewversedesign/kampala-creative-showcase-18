@@ -1,83 +1,47 @@
-
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 
-// Updated portfolio items with descriptive names
+// Updated portfolio items with new projects
 const portfolioItems = [
   {
     id: 1,
-    title: "Skyline Technologies Website Redesign",
-    category: "Web Design",
-    image: "/lovable-uploads/57ad8728-a549-49bd-b575-6f0b556c02c2.png",
-    tags: ["Corporate", "UI/UX", "CMS"],
+    title: "Hamburg Super Card Platform",
+    category: "FinTech",
+    image: "/lovable-uploads/0d1a6abc-90e2-490e-b4fc-58e22ada6ed5.png",
+    tags: ["Banking", "UI/UX", "Web"],
   },
   {
     id: 2,
-    title: "FitTrack Pro Mobile Application",
-    category: "Mobile App",
-    image: "/lovable-uploads/c3cc1a29-7e8d-4ae4-9f21-1f6ea7df82c9.png",
-    tags: ["Health", "UI/UX", "Mobile"],
+    title: "Analyx Social Media Management",
+    category: "SaaS",
+    image: "/lovable-uploads/62920dc8-a08c-4442-b51d-8abd00536d86.png",
+    tags: ["Analytics", "Social Media", "Dashboard"],
   },
   {
     id: 3,
-    title: "Urban Brew Coffee House Branding",
-    category: "Branding",
-    image: "/lovable-uploads/9bb5f335-3cd6-4e63-8267-8ff59e757076.png",
-    tags: ["Food", "Branding", "Web"],
+    title: "QuickStore E-commerce Platform",
+    category: "E-commerce",
+    image: "/lovable-uploads/926452ab-8918-4e6c-afb4-b660355cdd32.png",
+    tags: ["Retail", "E-commerce", "Mobile"],
   },
   {
     id: 4,
-    title: "GreenLife Marketplace Platform",
+    title: "Modern Furniture Collection",
     category: "E-commerce",
-    image: "/lovable-uploads/cdaf56ff-1e92-469d-9782-8779d8d0b5e3.png",
-    tags: ["Sustainability", "E-commerce", "Web"],
+    image: "/lovable-uploads/81d44eec-a494-4957-9289-2369e6d4e20e.png",
+    tags: ["Furniture", "UI/UX", "Web"],
   },
   {
     id: 5,
-    title: "WealthWise Digital Banking",
-    category: "FinTech",
-    image: "/lovable-uploads/ecbe49bd-89c8-45a2-9567-8cb19574cc14.png",
-    tags: ["Banking", "UI/UX", "Mobile"],
-  },
-  {
-    id: 6,
-    title: "MetricMind Business Analytics",
-    category: "SaaS",
-    image: "/lovable-uploads/3b30dfc1-f5e0-4da4-9bab-b2dc5e20b50d.png",
-    tags: ["Analytics", "Dashboard", "Web"],
-  },
-  {
-    id: 7,
-    title: "GadgetGuru E-commerce Platform",
-    category: "E-commerce",
-    image: "/lovable-uploads/81439078-5641-41e3-ab47-9bd3397ff27b.png",
-    tags: ["Electronics", "Shop", "UI/UX"],
-  },
-  {
-    id: 8,
-    title: "InnovateHub Corporate Website",
+    title: "Create Software Solutions",
     category: "Web Design",
-    image: "/lovable-uploads/71afe6c7-556e-4ada-b77b-25668af67c5e.png",
-    tags: ["Corporate", "Software", "Business"],
-  },
-  {
-    id: 9,
-    title: "SmartVision AI Dashboard",
-    category: "Tech",
-    image: "/lovable-uploads/ef8c0c76-6a09-4725-bb0b-3d8e56d1f47c.png",
-    tags: ["AI", "Technology", "SaaS"],
-  },
-  {
-    id: 10,
-    title: "BlockChain Exchange Platform",
-    category: "Web3",
-    image: "/lovable-uploads/a83133ef-be74-4fb1-a932-d6ec544aca1e.png",
-    tags: ["Web3", "Blockchain", "Modern"],
+    image: "/lovable-uploads/a5b1a9f8-ad49-4740-ae2b-577bde8ac532.png",
+    tags: ["Corporate", "Software", "Modern"],
   }
 ];
 
-// Filter categories based on the new portfolio items
-const categories = ["All", "Web Design", "E-commerce", "Mobile App", "FinTech", "SaaS", "Tech", "Branding", "Web3"];
+// Updated categories based on the new portfolio items
+const categories = ["All", "Web Design", "E-commerce", "FinTech", "SaaS"];
 
 const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
