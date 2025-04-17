@@ -46,7 +46,7 @@ const HeroSection = () => {
         <div className="order-1 lg:order-2 relative animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <div className="relative z-10 animate-scale-in">
             <img 
-              src="/public/lovable-uploads/4855fe53-09dc-4c21-9e07-3ef21384d89f.png" 
+              src="/lovable-uploads/4855fe53-09dc-4c21-9e07-3ef21384d89f.png" 
               alt="DrewVerse Design Team" 
               className="w-full h-auto rounded-2xl shadow-xl"
             />
@@ -74,4 +74,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
