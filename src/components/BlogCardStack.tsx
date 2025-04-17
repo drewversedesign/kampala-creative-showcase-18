@@ -1,7 +1,10 @@
+
 import React, { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { springAnimation, getCardOpacity, getCardScale, getCardZIndex } from '../utils/cardAnimation';
+import { useSwipe } from '../hooks/use-swipe';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface BlogCard {
   id: number;
@@ -55,6 +58,7 @@ export default function BlogCardStack() {
   const [velocities, setVelocities] = useState<number[]>([]);
   const animationRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   
   // Initialize positions and velocities
   useEffect(() => {
@@ -153,6 +157,21 @@ export default function BlogCardStack() {
     }
   };
 
+  // Configure swipe handlers
+  const swipeHandlers = useSwipe({
+    onSwipeLeft: handleNextCard,
+    onSwipeRight: handlePrevCard
+  }, {
+    threshold: 30, // Lower threshold for more responsive swiping
+    preventDefaultTouchmove: false // Allow scrolling on mobile
+  });
+
+  // Prepare touch event handlers only for mobile devices
+  const touchProps = isMobile ? {
+    ...swipeHandlers,
+    "aria-label": "Swipe left or right to navigate between blog posts"
+  } : {};
+
   return (
     <div className="relative w-full overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-[#1A1F2C]">
       <div className="max-w-7xl mx-auto">
@@ -161,9 +180,16 @@ export default function BlogCardStack() {
           <p className="text-gray-400 max-w-2xl mx-auto">
             Explore our latest insights, tutorials, and case studies from our design experts
           </p>
+          {isMobile && (
+            <p className="text-orange-400 text-sm mt-2" aria-live="polite">
+              <span aria-hidden="true">← </span>
+              Swipe to navigate
+              <span aria-hidden="true"> →</span>
+            </p>
+          )}
         </div>
         
-        {/* Interactive area - keyboard navigable */}
+        {/* Interactive area - keyboard navigable and swipe enabled */}
         <div 
           ref={containerRef}
           tabIndex={0}
@@ -172,6 +198,7 @@ export default function BlogCardStack() {
           role="region"
           aria-label="Blog post carousel"
           aria-roledescription="carousel"
+          {...touchProps}
         >
           {/* Previous button for keyboard navigation, visually hidden */}
           <button 
