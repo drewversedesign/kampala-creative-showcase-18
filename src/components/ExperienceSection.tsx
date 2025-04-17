@@ -6,25 +6,25 @@ const experiences = [
     company: "OASIS PURE WATER",
     role: "UI/UX & Web Development",
     period: "2023 - Present",
-    description: "Redesigned the company's e-commerce platform resulting in a 40% increase in online sales and improved customer engagement metrics."
+    description: "Created a concept e-commerce platform with advanced user experience features that showcases our ability to increase online sales and improve customer engagement."
   },
   {
-    company: "InkMaster Tattoo",
+    company: "InkMaster Studio",
     role: "Brand Identity & Web Design",
-    period: "2022 - 2023",
-    description: "Created a complete brand overhaul including logo, color scheme, website, and marketing materials, establishing a cohesive brand identity."
+    period: "2023",
+    description: "Developed a comprehensive brand concept including logo, color scheme, website, and marketing materials, demonstrating our expertise in cohesive brand identity creation."
   },
   {
     company: "ModernSpace",
     role: "Mobile App Development",
-    period: "2021 - 2022",
-    description: "Developed a cross-platform mobile application for property browsing and booking, with integrated payment systems and user management."
+    period: "2023",
+    description: "Designed a showcase cross-platform mobile application for property browsing with integrated payment systems and user management, highlighting our mobile development capabilities."
   },
   {
     company: "GreenLife Market",
     role: "E-commerce Development",
-    period: "2020 - 2021",
-    description: "Built a custom e-commerce solution with inventory management, analytics dashboard, and responsive design optimized for mobile devices."
+    period: "2023",
+    description: "Built a concept e-commerce solution featuring inventory management, analytics dashboard, and responsive design optimized for mobile devices to demonstrate our e-commerce expertise."
   }
 ];
 
@@ -35,8 +35,8 @@ const ExperienceSection = () => {
         <div className="text-center mb-16">
           <h2 className="heading-lg mb-4">Our Experience</h2>
           <p className="text-drewverse-text/70 max-w-2xl mx-auto">
-            We've had the pleasure of working with amazing clients across various industries.
-            Here's a glimpse of our journey so far.
+            As a young agency founded in 2023, we've created visionary concept projects to showcase our capabilities.
+            Here's a glimpse of what we can do for your brand.
           </p>
         </div>
 
@@ -77,25 +77,25 @@ const ExperienceSection = () => {
                       <div className="absolute -top-3 -right-3 bg-drewverse-primary text-white p-2 rounded-xl">
                         <Briefcase size={20} />
                       </div>
-                      <h4 className="heading-sm mb-4">Client Success Stories</h4>
+                      <h4 className="heading-sm mb-4">Our Design Approach</h4>
                       <ul className="space-y-2">
                         <li className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-drewverse-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span>40% increase in online conversions</span>
+                          <span>User-centric design methodology</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-drewverse-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span>25% reduction in bounce rate</span>
+                          <span>Optimized for conversion & engagement</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-drewverse-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span>3x increase in mobile engagement</span>
+                          <span>Mobile-first responsive solutions</span>
                         </li>
                       </ul>
                     </div>
