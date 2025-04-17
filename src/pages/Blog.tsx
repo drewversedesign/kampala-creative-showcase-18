@@ -2,15 +2,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar } from 'lucide-react';
+import { blogPosts } from '../data/blogData';
 import Navbar from '../components/Navbar';
 import FooterSection from '../components/FooterSection';
 import { Helmet } from 'react-helmet';
-import { useBlogPosts } from '@/hooks/use-query';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 const Blog = () => {
-  const { data: blogPosts, isLoading, error } = useBlogPosts();
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
@@ -30,74 +27,49 @@ const Blog = () => {
             </p>
           </div>
 
-          {isLoading && (
-            <div className="text-center py-12">
-              <p className="text-gray-600">Loading blog posts...</p>
-            </div>
-          )}
-
-          {error && (
-            <Alert variant="destructive" className="mb-8">
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>
-                We couldn't load the blog posts. Please try again later.
-              </AlertDescription>
-            </Alert>
-          )}
-
-          {blogPosts && blogPosts.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-600">No blog posts found.</p>
-            </div>
-          )}
-
-          {blogPosts && blogPosts.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.map((post) => (
-                <article 
-                  key={post.id}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-                >
-                  <Link to={`/blog/${post.slug}`}>
-                    <div className="relative overflow-hidden aspect-[16/10]">
-                      <img 
-                        src={post.image_url || '/placeholder.svg'}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                        loading="lazy"
-                        width="800"
-                        height="500"
-                      />
-                      <div className="absolute top-4 left-4 bg-white/90 text-drewverse-primary text-xs font-semibold uppercase tracking-wider rounded-full px-3 py-1">
-                        {post.category}
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.map((post) => (
+              <article 
+                key={post.id}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <Link to={`/blog/${post.id}`}>
+                  <div className="relative overflow-hidden aspect-[16/10]">
+                    <img 
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      loading="lazy"
+                      width="800"
+                      height="500"
+                    />
+                    <div className="absolute top-4 left-4 bg-white/90 text-drewverse-primary text-xs font-semibold uppercase tracking-wider rounded-full px-3 py-1">
+                      {post.category}
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
+                      <Calendar size={14} />
+                      <time dateTime={post.date}>{post.date}</time>
                     </div>
                     
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
-                        <Calendar size={14} />
-                        <time dateTime={post.published_at || post.created_at}>
-                          {new Date(post.published_at || post.created_at).toLocaleDateString()}
-                        </time>
-                      </div>
-                      
-                      <h2 className="heading-sm mb-3 group-hover:text-drewverse-primary transition-colors">
-                        {post.title}
-                      </h2>
-                      
-                      <p className="text-gray-600 mb-4 line-clamp-2">
-                        {post.excerpt}
-                      </p>
+                    <h2 className="heading-sm mb-3 group-hover:text-drewverse-primary transition-colors">
+                      {post.title}
+                    </h2>
+                    
+                    <p className="text-gray-600 mb-4 line-clamp-2">
+                      {post.excerpt}
+                    </p>
 
-                      <div className="flex items-center gap-1 text-drewverse-primary font-medium">
-                        Read More <ArrowRight size={16} />
-                      </div>
+                    <div className="flex items-center gap-1 text-drewverse-primary font-medium">
+                      Read More <ArrowRight size={16} />
                     </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
-          )}
+                  </div>
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </main>
 
