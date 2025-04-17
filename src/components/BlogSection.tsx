@@ -116,13 +116,17 @@ const BlogSection = () => {
                   <time dateTime={post.date}>{post.date}</time>
                 </div>
                 <h3 className="heading-sm mb-3 group-hover:text-drewverse-primary transition-colors">
-                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                  {post.title}
                 </h3>
                 <p className="text-drewverse-text/70 mb-4">
                   {post.excerpt}
                 </p>
-                <Link to={`/blog/${post.slug}`} className="inline-flex items-center gap-1 text-drewverse-primary font-medium">
-                  Read More <ArrowRight size={16} />
+                <Link 
+                  to={`/blog/${post.slug}`} 
+                  className="inline-flex items-center gap-2 text-drewverse-primary font-medium hover:gap-3 transition-all"
+                  aria-label={`Read more about ${post.title}`}
+                >
+                  Read More <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </article>
