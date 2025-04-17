@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface ServiceCardProps {
   title: string;
@@ -17,31 +17,47 @@ export function ServiceCard({
   bgColor,
   buttonColor
 }: ServiceCardProps) {
+  // Determine if the card is active/primary (orange) or inactive (gray)
+  const isOrangeBg = bgColor === "bg-drewverse-primary" || bgColor === "bg-gradient-to-br from-orange-500 to-red-500";
+  
   return (
     <div 
-      className={`rounded-3xl overflow-hidden border-none ${bgColor} text-white shadow-lg group transition-all duration-300 h-full flex flex-col`}
+      className="group h-full rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ease-in-out"
     >
-      <div className="flex-grow p-6 flex flex-col">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-semibold">{title}</h3>
-          {icon}
+      <div className={`h-full flex flex-col ${isOrangeBg ? 
+        "bg-gradient-to-br from-orange-500 to-red-500 text-white ring-2 ring-orange-400" : 
+        "bg-gray-800 text-gray-400"}`}
+      >
+        <div className="p-6 pb-4 flex justify-between items-start">
+          <div>
+            <div className="text-xs uppercase tracking-wide mb-1">
+              Service
+            </div>
+            <h3 className={`text-2xl font-bold mb-2 ${isOrangeBg ? "text-white" : "text-gray-300"}`}>
+              {title}
+            </h3>
+          </div>
+          <div className="flex">
+            {icon}
+          </div>
         </div>
         
-        <div className="border-t border-gray-700 my-3"></div>
+        <div className="border-t border-gray-700 mx-6"></div>
         
-        <p className="mt-4 text-gray-300">{description}</p>
+        <div className="px-6 pb-6 flex-grow">
+          <p className={`mt-4 text-sm ${isOrangeBg ? "text-white/90" : "text-gray-400"}`}>
+            {description}
+          </p>
+        </div>
         
-        <div className="mt-auto pt-6 flex justify-end">
-          <button className={`${buttonColor} p-2 rounded-full`}>
-            <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-45">
-              <path d="M3.33398 8.00033H12.6673M12.6673 8.00033L8.00065 3.33366M12.6673 8.00033L8.00065 12.667" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+        <div className={`flex justify-end mt-4 px-6 pb-6 ${isOrangeBg ? "opacity-100" : "opacity-60"}`}>
+          <div className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${
+            isOrangeBg ? 
+            "bg-white text-orange-500 hover:bg-orange-100" : 
+            "bg-gray-700 text-gray-400"
+          }`}>
+            <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+          </div>
         </div>
       </div>
     </div>

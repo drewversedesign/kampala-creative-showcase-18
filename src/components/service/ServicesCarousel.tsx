@@ -23,7 +23,7 @@ interface ServicesCarouselProps {
 
 export function ServicesCarousel({ services }: ServicesCarouselProps) {
   return (
-    <div className="relative px-4 sm:px-8 md:px-12">
+    <div className="relative px-4 sm:px-8 md:px-12 py-8">
       <Carousel 
         className="w-full"
         opts={{
@@ -33,19 +33,21 @@ export function ServicesCarousel({ services }: ServicesCarouselProps) {
       >
         <CarouselContent className="-ml-4 md:-ml-6">
           {services.map((service, index) => (
-            <CarouselItem key={index} className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3">
-              <ServiceCard
-                title={service.title}
-                description={service.description}
-                icon={service.icon}
-                bgColor={service.bgColor}
-                buttonColor={service.buttonColor}
-              />
+            <CarouselItem key={index} className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 h-full">
+              <div className="h-full flex">
+                <ServiceCard
+                  title={service.title}
+                  description={service.description}
+                  icon={service.icon}
+                  bgColor={service.bgColor}
+                  buttonColor={service.buttonColor}
+                />
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-0 bg-white text-drewverse-dark hover:bg-drewverse-primary hover:text-white -translate-x-1/2 border-none" />
-        <CarouselNext className="absolute right-0 bg-white text-drewverse-dark hover:bg-drewverse-primary hover:text-white translate-x-1/2 border-none" />
+        <CarouselPrevious className="absolute left-0 bg-white text-drewverse-dark hover:bg-orange-500 hover:text-white -translate-x-1/2 border-none shadow-lg" />
+        <CarouselNext className="absolute right-0 bg-white text-drewverse-dark hover:bg-orange-500 hover:text-white translate-x-1/2 border-none shadow-lg" />
       </Carousel>
     </div>
   );
