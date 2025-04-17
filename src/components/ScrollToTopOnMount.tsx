@@ -10,7 +10,12 @@ const ScrollToTopOnMount = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Force scroll to top immediately when component mounts or route changes
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto' // Using 'auto' instead of 'smooth' for immediate effect
+    });
   }, [pathname]);
 
   return null;

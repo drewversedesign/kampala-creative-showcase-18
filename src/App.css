@@ -5,9 +5,9 @@
   overflow-x: hidden;
 }
 
-/* Smooth scrolling */
+/* Disable smooth scrolling to ensure immediate scroll to top works */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto !important;
 }
 
 /* Accessibility - focus styles */
