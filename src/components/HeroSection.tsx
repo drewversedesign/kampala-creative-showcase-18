@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { buttonVariants } from './ui/button';
 import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
+    <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white pt-24 md:pt-32 lg:pt-40">
       <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
