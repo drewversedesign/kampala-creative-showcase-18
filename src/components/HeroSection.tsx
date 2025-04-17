@@ -30,13 +30,13 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <div className="relative border-animation">
+          <div className="relative">
             <img 
               src="/lovable-uploads/14ba41e3-b481-459c-918b-b18bcc20ac7c.png" 
               alt="DrewVerse Design Digital Innovation" 
               className="w-full max-w-[600px] h-auto rounded-lg shadow-lg object-cover relative z-10"
             />
-            <div className="absolute inset-0 border-2 border-drewverse-primary rounded-lg animate-border-pulse z-0"></div>
+            <div className="absolute inset-0 border-4 border-orange-500 rounded-lg z-0" style={{animation: 'border-pulse 3s ease-in-out infinite'}}></div>
           </div>
         </div>
       </div>
