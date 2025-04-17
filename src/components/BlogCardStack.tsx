@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { springAnimation, getCardOpacity, getCardScale, getCardZIndex } from '../utils/cardAnimation';
@@ -55,6 +54,7 @@ export default function BlogCardStack() {
   const [positions, setPositions] = useState<number[]>([]);
   const [velocities, setVelocities] = useState<number[]>([]);
   const animationRef = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   // Initialize positions and velocities
   useEffect(() => {
@@ -101,12 +101,56 @@ export default function BlogCardStack() {
     };
   }, [activeCardIndex]);
 
+  // Focus the container when component mounts
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.focus();
+    }
+  }, []);
+
   const handleCardClick = (index: number) => {
     setActiveCardIndex(index);
   };
 
   const handleNextCard = () => {
     setActiveCardIndex((prevIndex) => (prevIndex + 1) % blogData.length);
+  };
+
+  const handlePrevCard = () => {
+    setActiveCardIndex((prevIndex) => (prevIndex - 1 + blogData.length) % blogData.length);
+  };
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        e.preventDefault();
+        handleNextCard();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        handlePrevCard();
+        break;
+      case 'Home':
+        e.preventDefault();
+        setActiveCardIndex(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        setActiveCardIndex(blogData.length - 1);
+        break;
+      case 'Enter':
+      case ' ': // Space key
+        e.preventDefault();
+        // If focused on a dot, change to that card
+        // Otherwise, go to next card
+        handleNextCard();
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -119,7 +163,25 @@ export default function BlogCardStack() {
           </p>
         </div>
         
-        <div className="relative h-[500px] w-full">
+        {/* Interactive area - keyboard navigable */}
+        <div 
+          ref={containerRef}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          className="relative h-[500px] w-full outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 rounded-lg"
+          role="region"
+          aria-label="Blog post carousel"
+          aria-roledescription="carousel"
+        >
+          {/* Previous button for keyboard navigation, visually hidden */}
+          <button 
+            className="sr-only"
+            onClick={handlePrevCard}
+            aria-label="Previous blog post"
+          >
+            Previous
+          </button>
+
           {/* Card Stack */}
           <div className="absolute inset-0 flex items-center justify-center">
             {blogData.map((card, index) => {
@@ -145,6 +207,9 @@ export default function BlogCardStack() {
                     zIndex,
                   }}
                   onClick={() => isActive && handleNextCard()}
+                  role={isActive ? "button" : "presentation"}
+                  aria-hidden={!isActive}
+                  aria-label={isActive ? `Current blog post: ${card.title}. Press Enter to view next post.` : undefined}
                 >
                   <div 
                     className={cn(
@@ -178,7 +243,7 @@ export default function BlogCardStack() {
                       <div className="relative overflow-hidden rounded-lg h-48">
                         <img 
                           src={card.image} 
-                          alt={card.title} 
+                          alt={`${card.title} illustration`}
                           className="w-full h-full object-cover object-center transform transition-transform hover:scale-110 duration-700"
                         />
                       </div>
@@ -193,7 +258,7 @@ export default function BlogCardStack() {
                             "bg-white text-orange-500 hover:bg-orange-100" : 
                             "bg-gray-700 text-gray-400"
                         )}>
-                          <ArrowRight size={18} strokeWidth={2} />
+                          <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
                         </div>
                       </div>
                     </div>
@@ -203,9 +268,22 @@ export default function BlogCardStack() {
             })}
           </div>
           
+          {/* Next button for keyboard navigation, visually hidden */}
+          <button 
+            className="sr-only"
+            onClick={handleNextCard}
+            aria-label="Next blog post"
+          >
+            Next
+          </button>
+          
           {/* Navigation Dots */}
-          <div className="absolute bottom-0 left-0 right-0 flex justify-center space-x-2">
-            {blogData.map((_, index) => (
+          <div 
+            className="absolute bottom-0 left-0 right-0 flex justify-center space-x-2"
+            role="tablist"
+            aria-label="Select a blog post"
+          >
+            {blogData.map((card, index) => (
               <button
                 key={index}
                 onClick={() => handleCardClick(index)}
@@ -215,7 +293,9 @@ export default function BlogCardStack() {
                     "bg-orange-500 w-8" : 
                     "bg-gray-600 hover:bg-gray-500"
                 )}
-                aria-label={`Go to slide ${index + 1}`}
+                aria-label={`Go to blog post ${index + 1}: ${card.title}`}
+                aria-selected={index === activeCardIndex}
+                role="tab"
               />
             ))}
           </div>
