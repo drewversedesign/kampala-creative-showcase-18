@@ -31,7 +31,7 @@ const HeroSection = () => {
         </div>
         <div className="flex justify-center items-center">
           <img 
-            src="/lovable-uploads/81439078-5641-41e3-ab47-9bd3397ff27b.png" 
+            src="/lovable-uploads/14ba41e3-b481-459c-918b-b18bcc20ac7c.png" 
             alt="DrewVerse Design Digital Innovation" 
             className="w-full max-w-[600px] h-auto rounded-lg shadow-lg object-cover"
           />
