@@ -1,72 +1,40 @@
 
-import { ArrowRight } from "lucide-react";
+import React from 'react';
+import { buttonVariants } from './ui/button';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-24 pb-16 bg-white relative overflow-hidden">
-      <div className="absolute -top-60 -right-60 w-96 h-96 bg-drewverse-primary/10 rounded-full blur-3xl"></div>
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-drewverse-primary/10 rounded-full blur-3xl"></div>
-      
-      <div className="container-wide grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="order-2 lg:order-1 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          <h1 className="heading-xl mb-6">
-            <span className="text-gradient">Digital Design & Development</span> Studio
+    <section className="relative w-full py-12 md:py-24 lg:py-32 bg-white">
+      <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
+        <div className="space-y-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            Digital Solutions for Growing Brands
           </h1>
-          <p className="text-xl text-drewverse-text/80 mb-8 max-w-xl">
-            Premium Digital Agency in Uganda | Founded in 2023
+          <p className="text-xl text-gray-600 max-w-[600px]">
+            At DrewVerse Design, we transform your digital vision into powerful, engaging experiences that drive business growth.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <button 
-              onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} 
-              className="btn-primary flex items-center gap-2 group"
+          <div className="flex gap-4">
+            <Link 
+              to="/services" 
+              className={buttonVariants({ variant: "default", size: "lg" })}
             >
-              Our Work <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
-            </button>
-            <button 
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} 
-              className="btn-outline"
+              Our Services
+            </Link>
+            <Link 
+              to="/contact" 
+              className={buttonVariants({ variant: "outline", size: "lg" })}
             >
-              Let's Talk
-            </button>
-          </div>
-          
-          <div className="mt-12 flex items-center gap-8">
-            <div>
-              <p className="text-3xl font-bold text-drewverse-primary">2023</p>
-              <p className="text-sm text-drewverse-text/70">Founded</p>
-            </div>
-            <div className="w-px h-12 bg-gray-200"></div>
-            <div>
-              <p className="text-3xl font-bold text-drewverse-primary">100%</p>
-              <p className="text-sm text-drewverse-text/70">Client Satisfaction</p>
-            </div>
+              Contact Us
+            </Link>
           </div>
         </div>
-        
-        <div className="order-1 lg:order-2 relative animate-fade-in" style={{ animationDelay: "0.4s" }}>
-          <div className="relative z-10 animate-scale-in">
-            <img 
-              src="/lovable-uploads/4855fe53-09dc-4c21-9e07-3ef21384d89f.png" 
-              alt="DrewVerse Design Team" 
-              className="w-full h-auto rounded-2xl shadow-xl"
-            />
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-lg p-4 animate-fade-in-right" style={{ animationDelay: "0.8s" }}>
-              <div className="flex items-center gap-3">
-                <div className="bg-green-100 rounded-full p-2">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-semibold">5-Star Rated</p>
-                  <p className="text-sm text-drewverse-text/70">Digital Solutions</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="absolute -bottom-10 -left-10 -z-10 w-60 h-60 bg-drewverse-primary/20 rounded-full blur-xl"></div>
-          <div className="absolute -top-10 -right-10 -z-10 w-60 h-60 bg-drewverse-primary/20 rounded-full blur-xl"></div>
+        <div className="flex justify-center items-center">
+          <img 
+            src="/lovable-uploads/acad048e-c7de-4e77-ab8f-ac345aef960f.png" 
+            alt="DrewVerse Design Professional" 
+            className="w-full max-w-[600px] h-auto rounded-lg shadow-lg object-cover"
+          />
         </div>
       </div>
     </section>
@@ -74,3 +42,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
