@@ -1,48 +1,28 @@
 
-import { useEffect } from "react";
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import PortfolioSection from "../components/PortfolioSection";
-import ServicesSection from "../components/ServicesSection";
-import ExperienceSection from "../components/ExperienceSection";
-import WhyChooseUsSection from "../components/WhyChooseUsSection";
-import TestimonialsSection from "../components/TestimonialsSection";
-import CtaSection from "../components/CtaSection";
-import BlogSection from "../components/BlogSection";
-import FooterSection from "../components/FooterSection";
-import { initScrollAnimation } from "../utils/scrollAnimation";
+import React from 'react';
+import Navbar from '../components/Navbar';
+import HeroSection from '../components/HeroSection';
+import ServicesSection from '../components/ServicesSection';
+import ExperienceSection from '../components/ExperienceSection';
+import BlogCardStack from '../components/BlogCardStack'; // Import the new component
+import TestimonialsSection from '../components/TestimonialsSection';
+import WhyChooseUsSection from '../components/WhyChooseUsSection';
+import PortfolioSection from '../components/PortfolioSection';
+import CtaSection from '../components/CtaSection';
+import FooterSection from '../components/FooterSection';
 
-const Index = () => {
-  // Scroll to top on page load and initialize animations
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    
-    // Initialize scroll animations
-    initScrollAnimation();
-    
-    // Re-initialize animations when the window is resized
-    window.addEventListener("resize", initScrollAnimation);
-    
-    return () => {
-      window.removeEventListener("resize", initScrollAnimation);
-    };
-  }, []);
-
+const Index: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="overflow-x-hidden">
       <Navbar />
-      
-      <main className="flex-grow">
-        <HeroSection />
-        <PortfolioSection />
-        <ServicesSection />
-        <ExperienceSection />
-        <WhyChooseUsSection />
-        <TestimonialsSection />
-        <CtaSection />
-        <BlogSection />
-      </main>
-      
+      <HeroSection />
+      <ServicesSection />
+      <ExperienceSection />
+      <PortfolioSection />
+      <BlogCardStack /> {/* Replace the old BlogSection with our new BlogCardStack */}
+      <WhyChooseUsSection />
+      <TestimonialsSection />
+      <CtaSection />
       <FooterSection />
     </div>
   );
