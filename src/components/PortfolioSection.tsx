@@ -2,54 +2,40 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 
-// Portfolio items with mock data
+// Updated portfolio items with new images
 const portfolioItems = [
   {
     id: 1,
-    title: "OASIS Pure Water",
+    title: "Furniture Design",
     category: "Web Design",
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "/lovable-uploads/57ad8728-a549-49bd-b575-6f0b556c02c2.png",
     tags: ["E-commerce", "UI/UX", "Web"],
   },
   {
     id: 2,
-    title: "InkMaster Mobile App",
-    category: "Apps",
-    image: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    tags: ["Mobile", "UI/UX", "Apps"],
+    title: "Phlox Headphone Store",
+    category: "E-commerce",
+    image: "/lovable-uploads/c3cc1a29-7e8d-4ae4-9f21-1f6ea7df82c9.png",
+    tags: ["Product", "UI/UX", "E-commerce"],
   },
   {
     id: 3,
-    title: "ModernSpace Branding",
-    category: "Brand",
-    image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    tags: ["Logo", "Identity", "Brand"],
+    title: "Arch Studio Architecture",
+    category: "Web Design",
+    image: "/lovable-uploads/9bb5f335-3cd6-4e63-8267-8ff59e757076.png",
+    tags: ["Architecture", "Branding", "Web"],
   },
   {
     id: 4,
-    title: "GreenLife Market",
-    category: "Web Design",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    tags: ["E-commerce", "UI/UX", "Web"],
-  },
-  {
-    id: 5,
-    title: "TechHub Animation",
-    category: "Motion",
-    image: "https://images.unsplash.com/photo-1618367588411-d9a90fefa881?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    tags: ["Animation", "Video", "Motion"],
-  },
-  {
-    id: 6,
-    title: "FitLife Mobile App",
-    category: "Apps",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    tags: ["Mobile", "UI/UX", "Apps"],
+    title: "Hope for Humanity",
+    category: "Non-profit",
+    image: "/lovable-uploads/cdaf56ff-1e92-469d-9782-8779d8d0b5e3.png",
+    tags: ["Charity", "Brand", "Web"],
   }
 ];
 
-// Filter categories
-const categories = ["All", "Web Design", "Apps", "Brand", "Motion"];
+// Filter categories based on the new portfolio items
+const categories = ["All", "Web Design", "E-commerce", "Non-profit"];
 
 const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -88,13 +74,13 @@ const PortfolioSection = () => {
         </div>
 
         {/* Portfolio grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredItems.map((item) => (
             <div 
               key={item.id} 
               className="group relative overflow-hidden rounded-2xl bg-drewverse-gray shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="relative overflow-hidden aspect-[4/3]">
+              <div className="relative overflow-hidden aspect-[16/9]">
                 <img
                   src={item.image}
                   alt={item.title}
