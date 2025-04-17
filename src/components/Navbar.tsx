@@ -33,7 +33,7 @@ const Navbar = () => {
           className="flex items-center"
         >
           <span className="text-2xl font-bold text-drewverse-dark">
-            Drew<span className="text-drewverse-primary">Verse</span>
+            DrewVerse <span className="text-drewverse-primary">Design</span>
           </span>
         </button>
 

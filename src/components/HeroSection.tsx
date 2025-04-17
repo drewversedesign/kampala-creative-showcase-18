@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
@@ -13,7 +12,7 @@ const HeroSection = () => {
             <span className="text-gradient">Digital Design & Development</span> Studio
           </h1>
           <p className="text-xl text-drewverse-text/80 mb-8 max-w-xl">
-            Based in Kampala, Uganda | 10+ Years of Exceptional Digital Experiences
+            DrewVerse Design | 10+ Years of Exceptional Digital Experiences
           </p>
           <div className="flex flex-wrap gap-4">
             <button 

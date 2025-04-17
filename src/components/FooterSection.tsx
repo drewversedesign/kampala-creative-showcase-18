@@ -1,4 +1,3 @@
-
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Youtube, Send } from "lucide-react";
 import { useState } from "react";
 
@@ -20,7 +19,7 @@ const FooterSection = () => {
           <div>
             <div className="mb-6">
               <span className="text-2xl font-bold">
-                Drew<span className="text-drewverse-primary">Verse</span>
+                DrewVerse <span className="text-drewverse-primary">Design</span>
               </span>
             </div>
             <p className="text-white/70 mb-6">
