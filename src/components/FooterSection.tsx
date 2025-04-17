@@ -59,15 +59,19 @@ const FooterSection = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-drewverse-primary flex-shrink-0 mt-1" size={18} />
-                <span className="text-white/70">4th Floor, Innovation Hub, Kampala, Uganda</span>
+                <span className="text-white/70">Kampala, Uganda</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-drewverse-primary flex-shrink-0" size={18} />
-                <span className="text-white/70">+256 (0) 700 123 456</span>
+                <span className="text-white/70">+256 (0) 772 653 789</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="text-drewverse-primary flex-shrink-0" size={18} />
+                <span className="text-white/70">+256 (0) 757 399 955</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-drewverse-primary flex-shrink-0" size={18} />
-                <span className="text-white/70">hello@drewversedesign.com</span>
+                <span className="text-white/70">drewversedesign@gmail.com</span>
               </li>
             </ul>
           </div>
