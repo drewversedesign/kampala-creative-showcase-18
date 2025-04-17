@@ -1,6 +1,13 @@
 
-import { CreditCard, Layout, Smartphone, Palette, Film, Code } from "lucide-react";
+import { CreditCard, Layout, Smartphone, Palette, Film, Code, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
 const services = [
   {
@@ -59,37 +66,50 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card 
-              key={index} 
-              className={`rounded-3xl overflow-hidden border-none ${service.bgColor} text-white shadow-lg group transition-all duration-300 h-full flex flex-col`}
-            >
-              <CardContent className="flex-grow p-6 flex flex-col">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-semibold">{service.title}</h3>
-                  {service.icon}
-                </div>
-                
-                <div className="border-t border-gray-700 my-3"></div>
-                
-                <p className="mt-4 text-gray-300">{service.description}</p>
-                
-                <div className="mt-auto pt-6 flex justify-end">
-                  <button className={`${service.buttonColor} p-2 rounded-full`}>
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-45">
-                      <path d="M3.33398 8.00033H12.6673M12.6673 8.00033L8.00065 3.33366M12.6673 8.00033L8.00065 12.667" 
-                        stroke="currentColor" 
-                        strokeWidth="1.5" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="relative px-4 sm:px-8 md:px-12">
+          <Carousel 
+            className="w-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="-ml-4 md:-ml-6">
+              {services.map((service, index) => (
+                <CarouselItem key={index} className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3">
+                  <Card 
+                    className={`rounded-3xl overflow-hidden border-none ${service.bgColor} text-white shadow-lg group transition-all duration-300 h-full flex flex-col`}
+                  >
+                    <CardContent className="flex-grow p-6 flex flex-col">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-xl font-semibold">{service.title}</h3>
+                        {service.icon}
+                      </div>
+                      
+                      <div className="border-t border-gray-700 my-3"></div>
+                      
+                      <p className="mt-4 text-gray-300">{service.description}</p>
+                      
+                      <div className="mt-auto pt-6 flex justify-end">
+                        <button className={`${service.buttonColor} p-2 rounded-full`}>
+                          <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-45">
+                            <path d="M3.33398 8.00033H12.6673M12.6673 8.00033L8.00065 3.33366M12.6673 8.00033L8.00065 12.667" 
+                              stroke="currentColor" 
+                              strokeWidth="1.5" 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-0 bg-white text-drewverse-dark hover:bg-drewverse-primary hover:text-white -translate-x-1/2 border-none" />
+            <CarouselNext className="absolute right-0 bg-white text-drewverse-dark hover:bg-drewverse-primary hover:text-white translate-x-1/2 border-none" />
+          </Carousel>
         </div>
 
         <div className="mt-16 text-center">
