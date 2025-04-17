@@ -1,3 +1,4 @@
+
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
@@ -12,7 +13,7 @@ const HeroSection = () => {
             <span className="text-gradient">Digital Design & Development</span> Studio
           </h1>
           <p className="text-xl text-drewverse-text/80 mb-8 max-w-xl">
-            DrewVerse Design | 10+ Years of Exceptional Digital Experiences
+            Premium Digital Agency in Uganda | Founded in 2023
           </p>
           <div className="flex flex-wrap gap-4">
             <button 
@@ -31,13 +32,13 @@ const HeroSection = () => {
           
           <div className="mt-12 flex items-center gap-8">
             <div>
-              <p className="text-3xl font-bold text-drewverse-primary">10+</p>
-              <p className="text-sm text-drewverse-text/70">Years Experience</p>
+              <p className="text-3xl font-bold text-drewverse-primary">2023</p>
+              <p className="text-sm text-drewverse-text/70">Founded</p>
             </div>
             <div className="w-px h-12 bg-gray-200"></div>
             <div>
-              <p className="text-3xl font-bold text-drewverse-primary">500+</p>
-              <p className="text-sm text-drewverse-text/70">Projects Delivered</p>
+              <p className="text-3xl font-bold text-drewverse-primary">100%</p>
+              <p className="text-sm text-drewverse-text/70">Client Satisfaction</p>
             </div>
           </div>
         </div>

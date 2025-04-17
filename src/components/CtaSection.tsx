@@ -11,10 +11,10 @@ const CtaSection = () => {
           
           <div className="grid md:grid-cols-2 gap-8 p-8 md:p-12 items-center relative z-10">
             <div>
-              <h2 className="heading-lg text-white mb-4">Have a Project? Let's Discuss</h2>
+              <h2 className="heading-lg text-white mb-4">Elevate Your Brand with Us</h2>
               <p className="text-white/80 mb-6">
-                Ready to take your digital presence to the next level? Get in touch with our team
-                to discuss your project needs and discover how we can help you achieve your goals.
+                Ready to stand out in the digital landscape? Partner with DrewVerse Design to create 
+                visionary digital experiences that captivate your audience and elevate your brand.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a href="#contact" className="bg-drewverse-primary text-white font-semibold py-3 px-6 rounded-full flex items-center gap-2 hover:shadow-lg transition-all duration-300">
@@ -29,37 +29,37 @@ const CtaSection = () => {
             <div className="relative">
               {/* Stylized form-like element */}
               <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
-                <h3 className="text-white text-xl font-bold mb-6">Quick Project Inquiry</h3>
+                <h3 className="text-white text-xl font-bold mb-6">What's Your Vision?</h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="text-white/80 text-sm mb-1 block">What type of project?</label>
+                    <label className="text-white/80 text-sm mb-1 block">What are you looking for?</label>
                     <div className="flex flex-wrap gap-2">
-                      <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
-                        Website
-                      </span>
-                      <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
-                        Mobile App
-                      </span>
                       <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
                         Branding
                       </span>
                       <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
-                        Other
+                        Website
+                      </span>
+                      <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
+                        UI/UX Design
+                      </span>
+                      <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
+                        Digital Strategy
                       </span>
                     </div>
                   </div>
                   
                   <div>
-                    <label className="text-white/80 text-sm mb-1 block">Estimated budget?</label>
+                    <label className="text-white/80 text-sm mb-1 block">Your company type?</label>
                     <div className="flex flex-wrap gap-2">
                       <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
-                        $1k - $5k
+                        Startup
                       </span>
                       <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
-                        $5k - $10k
+                        Small Business
                       </span>
                       <span className="bg-white/10 text-white px-3 py-1 rounded-full text-sm hover:bg-drewverse-primary/50 cursor-pointer transition-colors">
-                        $10k+
+                        Corporate
                       </span>
                     </div>
                   </div>

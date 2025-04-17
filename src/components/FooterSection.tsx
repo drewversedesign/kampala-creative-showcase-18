@@ -1,3 +1,4 @@
+
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Youtube, Send } from "lucide-react";
 import { useState } from "react";
 
@@ -23,7 +24,7 @@ const FooterSection = () => {
               </span>
             </div>
             <p className="text-white/70 mb-6">
-              Crafting Beautiful & Functional Digital Experiences for brands that want to make a lasting impression.
+              Premium digital agency specializing in branding, web development, and UI/UX design for startups and brands seeking standout digital experiences.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="bg-white/10 p-2 rounded-full hover:bg-drewverse-primary transition-colors duration-300">
@@ -59,7 +60,7 @@ const FooterSection = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-drewverse-primary flex-shrink-0 mt-1" size={18} />
-                <span className="text-white/70">4th Floor, Acacia Mall, Kampala, Uganda</span>
+                <span className="text-white/70">4th Floor, Innovation Hub, Kampala, Uganda</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-drewverse-primary flex-shrink-0" size={18} />
@@ -67,7 +68,7 @@ const FooterSection = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-drewverse-primary flex-shrink-0" size={18} />
-                <span className="text-white/70">hello@drewverse.com</span>
+                <span className="text-white/70">hello@drewversedesign.com</span>
               </li>
             </ul>
           </div>
@@ -101,9 +102,9 @@ const FooterSection = () => {
         <div className="py-16">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="heading-lg mb-4">Let's Discuss Your Project</h2>
+              <h2 className="heading-lg mb-4 text-white">Let's Discuss Your Project</h2>
               <p className="text-white/70">
-                Fill out the form below and we'll get back to you within 24 hours.
+                Ready to create a standout digital presence? Fill out the form below and we'll get back to you within 24 hours.
               </p>
             </div>
             
@@ -162,7 +163,7 @@ const FooterSection = () => {
         
         {/* Copyright */}
         <div className="pt-8 border-t border-white/10 text-center text-white/50 text-sm">
-          <p>© {new Date().getFullYear()} DrewVerse Design. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} DrewVerse Design. Founded 2023. All rights reserved.</p>
         </div>
       </div>
     </footer>

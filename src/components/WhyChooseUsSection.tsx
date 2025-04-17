@@ -3,24 +3,24 @@ import { Check, Clock, Award, Users } from "lucide-react";
 
 const features = [
   {
-    icon: <Clock className="w-10 h-10 text-drewverse-primary" />,
-    title: "5+ Years Experience",
-    description: "More than five years delivering exceptional digital solutions to clients across diverse industries."
+    icon: <Award className="w-10 h-10 text-drewverse-primary" />,
+    title: "Visionary Approach",
+    description: "Fresh perspective with innovative design thinking tailored for the digital age."
   },
   {
     icon: <Check className="w-10 h-10 text-drewverse-primary" />,
-    title: "60+ Completed Projects",
-    description: "Successfully delivered over sixty projects for clients ranging from startups to established enterprises."
+    title: "High-Quality Concepts",
+    description: "Showcase portfolio demonstrating our capabilities in branding, web development, and UI/UX design."
   },
   {
-    icon: <Award className="w-10 h-10 text-drewverse-primary" />,
-    title: "Attention to Detail",
-    description: "Meticulous attention to every pixel, line of code, and user interaction for flawless execution."
+    icon: <Clock className="w-10 h-10 text-drewverse-primary" />,
+    title: "Founded in 2023",
+    description: "Young, dynamic team bringing fresh ideas and modern approaches to digital design challenges."
   },
   {
     icon: <Users className="w-10 h-10 text-drewverse-primary" />,
-    title: "Client Satisfaction",
-    description: "Dedicated to exceeding client expectations with personalized service and exceptional results."
+    title: "Client-Focused",
+    description: "Dedicated to understanding your unique needs and delivering personalized digital solutions."
   }
 ];
 
@@ -36,8 +36,8 @@ const WhyChooseUsSection = () => {
           <div className="text-center mb-16 relative z-10">
             <h2 className="heading-lg mb-4 text-white">Why Choose Us</h2>
             <p className="text-white/80 max-w-2xl mx-auto">
-              We combine creativity, technical expertise, and strategic thinking to deliver
-              digital solutions that elevate your brand and drive business results.
+              As a premium digital agency in Uganda, we combine creativity, technical expertise, and strategic thinking to deliver
+              standout digital solutions that elevate your brand and help startups make their mark.
             </p>
           </div>
 
