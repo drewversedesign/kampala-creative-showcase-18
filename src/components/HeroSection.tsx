@@ -31,8 +31,8 @@ const HeroSection = () => {
         </div>
         <div className="flex justify-center items-center">
           <img 
-            src="/lovable-uploads/acad048e-c7de-4e77-ab8f-ac345aef960f.png" 
-            alt="DrewVerse Design Professional" 
+            src="/lovable-uploads/latest-hero-image.png" 
+            alt="DrewVerse Design Digital Innovation" 
             className="w-full max-w-[600px] h-auto rounded-lg shadow-lg object-cover"
           />
         </div>
@@ -42,4 +42,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
