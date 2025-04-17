@@ -4,11 +4,11 @@ import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
+import PortfolioSection from '../components/PortfolioSection';
 import ExperienceSection from '../components/ExperienceSection';
 import BlogCardStack from '../components/BlogCardStack';
 import TestimonialsSection from '../components/TestimonialsSection';
 import WhyChooseUsSection from '../components/WhyChooseUsSection';
-import PortfolioSection from '../components/PortfolioSection';
 import CtaSection from '../components/CtaSection';
 import FooterSection from '../components/FooterSection';
 import { scrollToSection } from '../utils/smoothScroll';
@@ -36,8 +36,8 @@ const Index: React.FC = () => {
       <Navbar />
       <HeroSection />
       <ServicesSection />
-      <ExperienceSection />
       <PortfolioSection />
+      <ExperienceSection />
       <BlogCardStack />
       <WhyChooseUsSection />
       <TestimonialsSection />
