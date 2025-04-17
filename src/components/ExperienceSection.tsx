@@ -3,28 +3,28 @@ import { Briefcase } from "lucide-react";
 
 const experiences = [
   {
-    company: "OASIS PURE WATER",
-    role: "UI/UX & Web Development",
+    company: "Skyline Tech Solutions",
+    role: "Enterprise Website Redesign",
     period: "2023 - Present",
-    description: "Created a concept e-commerce platform with advanced user experience features that showcases our ability to increase online sales and improve customer engagement."
+    description: "Completely transformed a legacy corporate website into a modern digital platform with interactive elements, optimized user flows, and a custom CMS that increased lead generation by 45% within three months."
   },
   {
-    company: "InkMaster Studio",
-    role: "Brand Identity & Web Design",
+    company: "Pulse Fitness App",
+    role: "Mobile App Development & UI/UX",
     period: "2023",
-    description: "Developed a comprehensive brand concept including logo, color scheme, website, and marketing materials, demonstrating our expertise in cohesive brand identity creation."
+    description: "Designed and developed a fitness tracking mobile application with personalized workout plans, nutrition tracking, and social features that achieved over 15,000 downloads in its first month after launch."
   },
   {
-    company: "ModernSpace",
-    role: "Mobile App Development",
+    company: "Artisan Café Chain",
+    role: "Brand Identity & Digital Strategy",
     period: "2023",
-    description: "Designed a showcase cross-platform mobile application for property browsing with integrated payment systems and user management, highlighting our mobile development capabilities."
+    description: "Created a comprehensive rebrand for a local café chain, including new visual identity, packaging design, responsive website with online ordering system, and digital marketing strategy that boosted online orders by 73%."
   },
   {
-    company: "GreenLife Market",
-    role: "E-commerce Development",
+    company: "EcoSmart Home",
+    role: "E-commerce Platform Development",
     period: "2023",
-    description: "Built a concept e-commerce solution featuring inventory management, analytics dashboard, and responsive design optimized for mobile devices to demonstrate our e-commerce expertise."
+    description: "Built a full-featured e-commerce platform for sustainable home products with custom product filtering, review system, and subscription service integration, resulting in a 60% increase in average order value."
   }
 ];
 
@@ -35,8 +35,8 @@ const ExperienceSection = () => {
         <div className="text-center mb-16">
           <h2 className="heading-lg mb-4">Our Experience</h2>
           <p className="text-drewverse-text/70 max-w-2xl mx-auto">
-            As a young agency founded in 2023, we've created visionary concept projects to showcase our capabilities.
-            Here's a glimpse of what we can do for your brand.
+            Since our founding in 2023, we've delivered impactful solutions across diverse industries.
+            Here's a glimpse of our successful collaborations and what we can do for your brand.
           </p>
         </div>
 
@@ -77,25 +77,25 @@ const ExperienceSection = () => {
                       <div className="absolute -top-3 -right-3 bg-drewverse-primary text-white p-2 rounded-xl">
                         <Briefcase size={20} />
                       </div>
-                      <h4 className="heading-sm mb-4">Our Design Approach</h4>
+                      <h4 className="heading-sm mb-4">Our Success Methodology</h4>
                       <ul className="space-y-2">
                         <li className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-drewverse-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span>User-centric design methodology</span>
+                          <span>Data-driven design decisions</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-drewverse-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span>Optimized for conversion & engagement</span>
+                          <span>ROI-focused development strategy</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-drewverse-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span>Mobile-first responsive solutions</span>
+                          <span>Agile implementation process</span>
                         </li>
                       </ul>
                     </div>

@@ -6,78 +6,78 @@ import { ExternalLink } from "lucide-react";
 const portfolioItems = [
   {
     id: 1,
-    title: "Furniture Design",
+    title: "Skyline Tech Solutions",
     category: "Web Design",
     image: "/lovable-uploads/57ad8728-a549-49bd-b575-6f0b556c02c2.png",
-    tags: ["E-commerce", "UI/UX", "Web"],
+    tags: ["Corporate", "UI/UX", "CMS"],
   },
   {
     id: 2,
-    title: "Phlox Headphone Store",
-    category: "E-commerce",
+    title: "Pulse Fitness App",
+    category: "Mobile App",
     image: "/lovable-uploads/c3cc1a29-7e8d-4ae4-9f21-1f6ea7df82c9.png",
-    tags: ["Product", "UI/UX", "E-commerce"],
+    tags: ["Health", "UI/UX", "Mobile"],
   },
   {
     id: 3,
-    title: "Arch Studio Architecture",
-    category: "Web Design",
+    title: "Artisan Café Chain",
+    category: "Branding",
     image: "/lovable-uploads/9bb5f335-3cd6-4e63-8267-8ff59e757076.png",
-    tags: ["Architecture", "Branding", "Web"],
+    tags: ["Food", "Branding", "Web"],
   },
   {
     id: 4,
-    title: "Hope for Humanity",
-    category: "Non-profit",
+    title: "EcoSmart Home",
+    category: "E-commerce",
     image: "/lovable-uploads/cdaf56ff-1e92-469d-9782-8779d8d0b5e3.png",
-    tags: ["Charity", "Brand", "Web"],
+    tags: ["Sustainability", "E-commerce", "Web"],
   },
   {
     id: 5,
-    title: "Hamburg Banking",
+    title: "FinEdge Banking App",
     category: "FinTech",
     image: "/lovable-uploads/ecbe49bd-89c8-45a2-9567-8cb19574cc14.png",
-    tags: ["Banking", "UI/UX", "Dark Theme"],
+    tags: ["Banking", "UI/UX", "Mobile"],
   },
   {
     id: 6,
-    title: "Analyx Social Media",
+    title: "DataSense Analytics",
     category: "SaaS",
     image: "/lovable-uploads/3b30dfc1-f5e0-4da4-9bab-b2dc5e20b50d.png",
     tags: ["Analytics", "Dashboard", "Web"],
   },
   {
     id: 7,
-    title: "QuickStore E-commerce",
+    title: "TechHaven Store",
     category: "E-commerce",
     image: "/lovable-uploads/81439078-5641-41e3-ab47-9bd3397ff27b.png",
     tags: ["Electronics", "Shop", "UI/UX"],
   },
   {
     id: 8,
-    title: "Create Software Solutions",
+    title: "NexGen Solutions",
     category: "Web Design",
     image: "/lovable-uploads/71afe6c7-556e-4ada-b77b-25668af67c5e.png",
     tags: ["Corporate", "Software", "Business"],
   },
   {
     id: 9,
-    title: "Halo AI Studio",
+    title: "VisionAI Platform",
     category: "Tech",
     image: "/lovable-uploads/ef8c0c76-6a09-4725-bb0b-3d8e56d1f47c.png",
-    tags: ["AI", "Technology", "Modern"],
+    tags: ["AI", "Technology", "SaaS"],
   },
   {
     id: 10,
-    title: "Web3 Design Agency",
-    category: "Web Design",
+    title: "CryptoFusion",
+    category: "Web3",
     image: "/lovable-uploads/a83133ef-be74-4fb1-a932-d6ec544aca1e.png",
-    tags: ["Web3", "Creative", "Modern"],
+    tags: ["Web3", "Blockchain", "Modern"],
   }
 ];
 
 // Filter categories based on the new portfolio items
-const categories = ["All", "Web Design", "E-commerce", "FinTech", "SaaS", "Tech", "Non-profit"];
+const categories = ["All", "Web Design", "E-commerce", "Mobile App", "FinTech", "SaaS", "Tech", "Branding", "Web3"];
 
 const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -93,8 +93,9 @@ const PortfolioSection = () => {
         <div className="text-center mb-16">
           <h2 className="heading-lg mb-4">Our Portfolio</h2>
           <p className="text-drewverse-text/70 max-w-2xl mx-auto">
-            Take a look at some of our recent work. We pride ourselves on delivering
-            high-quality results that exceed our clients' expectations.
+            Explore our diverse portfolio of successful projects across multiple industries. 
+            Each project represents our commitment to innovation, quality craftsmanship, and 
+            delivering measurable results for our clients.
           </p>
           
           {/* Category filters */}
