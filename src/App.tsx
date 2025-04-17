@@ -16,7 +16,7 @@ function App() {
       <ScrollToTopOnMount />
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/portfolio/:id" element={<PortfolioDetails />} />
         <Route path="/services" element={<Services />} />
         <Route path="/about" element={<About />} />
