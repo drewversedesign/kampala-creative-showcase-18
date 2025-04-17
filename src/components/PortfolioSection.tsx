@@ -2,74 +2,74 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 
-// Updated portfolio items with new images
+// Updated portfolio items with descriptive names
 const portfolioItems = [
   {
     id: 1,
-    title: "Skyline Tech Solutions",
+    title: "Skyline Technologies Website Redesign",
     category: "Web Design",
     image: "/lovable-uploads/57ad8728-a549-49bd-b575-6f0b556c02c2.png",
     tags: ["Corporate", "UI/UX", "CMS"],
   },
   {
     id: 2,
-    title: "Pulse Fitness App",
+    title: "FitTrack Pro Mobile Application",
     category: "Mobile App",
     image: "/lovable-uploads/c3cc1a29-7e8d-4ae4-9f21-1f6ea7df82c9.png",
     tags: ["Health", "UI/UX", "Mobile"],
   },
   {
     id: 3,
-    title: "Artisan Café Chain",
+    title: "Urban Brew Coffee House Branding",
     category: "Branding",
     image: "/lovable-uploads/9bb5f335-3cd6-4e63-8267-8ff59e757076.png",
     tags: ["Food", "Branding", "Web"],
   },
   {
     id: 4,
-    title: "EcoSmart Home",
+    title: "GreenLife Marketplace Platform",
     category: "E-commerce",
     image: "/lovable-uploads/cdaf56ff-1e92-469d-9782-8779d8d0b5e3.png",
     tags: ["Sustainability", "E-commerce", "Web"],
   },
   {
     id: 5,
-    title: "FinEdge Banking App",
+    title: "WealthWise Digital Banking",
     category: "FinTech",
     image: "/lovable-uploads/ecbe49bd-89c8-45a2-9567-8cb19574cc14.png",
     tags: ["Banking", "UI/UX", "Mobile"],
   },
   {
     id: 6,
-    title: "DataSense Analytics",
+    title: "MetricMind Business Analytics",
     category: "SaaS",
     image: "/lovable-uploads/3b30dfc1-f5e0-4da4-9bab-b2dc5e20b50d.png",
     tags: ["Analytics", "Dashboard", "Web"],
   },
   {
     id: 7,
-    title: "TechHaven Store",
+    title: "GadgetGuru E-commerce Platform",
     category: "E-commerce",
     image: "/lovable-uploads/81439078-5641-41e3-ab47-9bd3397ff27b.png",
     tags: ["Electronics", "Shop", "UI/UX"],
   },
   {
     id: 8,
-    title: "NexGen Solutions",
+    title: "InnovateHub Corporate Website",
     category: "Web Design",
     image: "/lovable-uploads/71afe6c7-556e-4ada-b77b-25668af67c5e.png",
     tags: ["Corporate", "Software", "Business"],
   },
   {
     id: 9,
-    title: "VisionAI Platform",
+    title: "SmartVision AI Dashboard",
     category: "Tech",
     image: "/lovable-uploads/ef8c0c76-6a09-4725-bb0b-3d8e56d1f47c.png",
     tags: ["AI", "Technology", "SaaS"],
   },
   {
     id: 10,
-    title: "CryptoFusion",
+    title: "BlockChain Exchange Platform",
     category: "Web3",
     image: "/lovable-uploads/a83133ef-be74-4fb1-a932-d6ec544aca1e.png",
     tags: ["Web3", "Blockchain", "Modern"],
