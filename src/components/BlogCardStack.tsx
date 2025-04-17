@@ -1,10 +1,13 @@
 
 import React, { useState, useEffect, useRef, KeyboardEvent } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Bookmark, BookmarkCheck } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { springAnimation, getCardOpacity, getCardScale, getCardZIndex } from '../utils/cardAnimation';
 import { useSwipe } from '../hooks/use-swipe';
 import { useIsMobile } from '../hooks/use-mobile';
+import { SocialShareButtons } from './SocialShareButtons';
+import { useBookmarks } from '../hooks/use-bookmarks';
+import { toast } from '@/components/ui/sonner';
 
 interface BlogCard {
   id: number;
@@ -56,9 +59,11 @@ export default function BlogCardStack() {
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
   const [positions, setPositions] = useState<number[]>([]);
   const [velocities, setVelocities] = useState<number[]>([]);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const animationRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  const { isBookmarked, toggleBookmark } = useBookmarks<BlogCard>('blog-bookmarks');
   
   // Initialize positions and velocities
   useEffect(() => {
@@ -72,28 +77,42 @@ export default function BlogCardStack() {
     };
   }, []);
 
-  // Update positions when active card changes
+  // Update positions when active card changes with enhanced animation
   useEffect(() => {
     setVelocities(blogData.map(() => 0)); // Reset velocities
+    setIsAnimating(true);
     
     // Start spring animation loop
     const animate = () => {
+      let stillAnimating = false;
+      
       setPositions(prevPositions => 
         prevPositions.map((pos, i) => {
           const targetPosition = i - activeCardIndex;
-          return springAnimation(pos, targetPosition, velocities[i]);
+          const newPos = springAnimation(pos, targetPosition, velocities[i]);
+          
+          // Check if this card is still animating
+          if (Math.abs(newPos - targetPosition) > 0.01) {
+            stillAnimating = true;
+          }
+          
+          return newPos;
         })
       );
       
       setVelocities(prevVelocities => 
         prevVelocities.map((vel, i) => {
           const targetPosition = i - activeCardIndex;
-          const force = (targetPosition - positions[i]) * 0.1;
+          const force = (targetPosition - positions[i]) * 0.12; // Increased spring strength
           return (vel + force) * 0.8; // Apply damping
         })
       );
       
-      animationRef.current = requestAnimationFrame(animate);
+      if (stillAnimating) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        setIsAnimating(false);
+      }
     };
     
     animationRef.current = requestAnimationFrame(animate);
@@ -113,19 +132,27 @@ export default function BlogCardStack() {
   }, []);
 
   const handleCardClick = (index: number) => {
-    setActiveCardIndex(index);
+    if (!isAnimating) {
+      setActiveCardIndex(index);
+    }
   };
 
   const handleNextCard = () => {
-    setActiveCardIndex((prevIndex) => (prevIndex + 1) % blogData.length);
+    if (!isAnimating) {
+      setActiveCardIndex((prevIndex) => (prevIndex + 1) % blogData.length);
+    }
   };
 
   const handlePrevCard = () => {
-    setActiveCardIndex((prevIndex) => (prevIndex - 1 + blogData.length) % blogData.length);
+    if (!isAnimating) {
+      setActiveCardIndex((prevIndex) => (prevIndex - 1 + blogData.length) % blogData.length);
+    }
   };
 
   // Handle keyboard navigation
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (isAnimating) return;
+    
     switch (e.key) {
       case 'ArrowRight':
       case 'ArrowDown':
@@ -157,20 +184,34 @@ export default function BlogCardStack() {
     }
   };
 
-  // Configure swipe handlers
-  const swipeHandlers = useSwipe({
-    onSwipeLeft: handleNextCard,
-    onSwipeRight: handlePrevCard
-  }, {
-    threshold: 30, // Lower threshold for more responsive swiping
-    preventDefaultTouchmove: false // Allow scrolling on mobile
-  });
+  // Configure swipe handlers with enhanced velocity feedback
+  const { onTouchStart, onTouchMove, onTouchEnd, velocity } = useSwipe(
+    {
+      onSwipeLeft: handleNextCard,
+      onSwipeRight: handlePrevCard
+    }, 
+    {
+      threshold: 30, // Lower threshold for more responsive swiping
+      preventDefaultTouchmove: false, // Allow scrolling on mobile
+      velocityMultiplier: 1.2 // Slightly increase velocity impact
+    }
+  );
 
   // Prepare touch event handlers only for mobile devices
   const touchProps = isMobile ? {
-    ...swipeHandlers,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
     "aria-label": "Swipe left or right to navigate between blog posts"
   } : {};
+  
+  // Handle bookmark toggle
+  const handleToggleBookmark = (e: React.MouseEvent, cardId: number) => {
+    e.stopPropagation();
+    toggleBookmark(cardId);
+    const action = isBookmarked(cardId) ? 'removed from' : 'added to';
+    toast.success(`Post ${action} bookmarks`);
+  };
 
   return (
     <div className="relative w-full overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-[#1A1F2C]">
@@ -218,20 +259,27 @@ export default function BlogCardStack() {
               const scale = getCardScale(position);
               const zIndex = getCardZIndex(isActive, position);
               
-              // Calculate transform based on position
-              let translateX = `${position * 40}%`;
+              // Calculate transform based on position with added velocity for more natural feel
+              let translateX = `${position * 40 + (isActive ? velocity.x * 5 : 0)}%`;
+              
+              // Rotation effect based on position
+              let rotation = position * -2; // slight rotation based on position
               
               return (
                 <div
                   key={card.id}
                   className={cn(
                     "absolute w-full max-w-md transition-all duration-500 ease-out",
-                    isActive ? "cursor-pointer" : "pointer-events-none"
+                    isActive ? "cursor-pointer" : "pointer-events-none",
+                    isAnimating ? "animate-in" : ""
                   )}
                   style={{
-                    transform: `translateX(${translateX}) scale(${scale})`,
+                    transform: `translateX(${translateX}) scale(${scale}) rotate(${rotation}deg)`,
                     opacity,
                     zIndex,
+                    transition: isAnimating 
+                      ? 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease-out' 
+                      : 'none'
                   }}
                   onClick={() => isActive && handleNextCard()}
                   role={isActive ? "button" : "presentation"}
@@ -246,18 +294,47 @@ export default function BlogCardStack() {
                         "bg-gray-800 text-gray-400 filter grayscale"
                     )}
                   >
-                    <div className="p-6 pb-4">
-                      <div className="text-xs uppercase tracking-wide mb-1">
-                        {card.category}
+                    <div className="p-6 pb-4 flex justify-between items-start">
+                      <div>
+                        <div className="text-xs uppercase tracking-wide mb-1">
+                          {card.category}
+                        </div>
+                        <h3 className={cn(
+                          "text-2xl font-bold mb-2",
+                          isActive ? "text-white" : "text-gray-300"
+                        )}>
+                          {card.title}
+                        </h3>
                       </div>
-                      <h3 className={cn(
-                        "text-2xl font-bold mb-2",
-                        isActive ? "text-white" : "text-gray-300"
-                      )}>
-                        {card.title}
-                      </h3>
-                      <div className="h-[1px] bg-gradient-to-r from-transparent via-current to-transparent opacity-20 my-4"></div>
+                      
+                      {isActive && (
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={(e) => handleToggleBookmark(e, card.id)}
+                            className={cn(
+                              "w-8 h-8 flex items-center justify-center rounded-full transition-all",
+                              isBookmarked(card.id) 
+                                ? "bg-orange-600 text-white" 
+                                : "bg-white/10 text-white hover:bg-white/20"
+                            )}
+                            aria-label={isBookmarked(card.id) ? "Remove from bookmarks" : "Add to bookmarks"}
+                          >
+                            {isBookmarked(card.id) ? (
+                              <BookmarkCheck size={16} strokeWidth={2.5} />
+                            ) : (
+                              <Bookmark size={16} strokeWidth={2.5} />
+                            )}
+                          </button>
+                          
+                          <SocialShareButtons 
+                            title={card.title} 
+                            description={card.description} 
+                          />
+                        </div>
+                      )}
                     </div>
+                    
+                    <div className="h-[1px] bg-gradient-to-r from-transparent via-current to-transparent opacity-20 my-4"></div>
                     
                     <div className="px-6 pb-6 space-y-4">
                       <p className={cn(
@@ -271,7 +348,10 @@ export default function BlogCardStack() {
                         <img 
                           src={card.image} 
                           alt={`${card.title} illustration`}
-                          className="w-full h-full object-cover object-center transform transition-transform hover:scale-110 duration-700"
+                          className={cn(
+                            "w-full h-full object-cover object-center transform transition-transform",
+                            isActive ? "hover:scale-110 duration-700" : ""
+                          )}
                         />
                       </div>
                       
