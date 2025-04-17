@@ -12,6 +12,7 @@ const BlogPost = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   
+  // Use the exported blogPosts from BlogSection.tsx
   const post = blogPosts.find((post) => post.slug === slug);
   
   if (!post) {

@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ScrollToTopOnMount from "./components/ScrollToTopOnMount";
 import "./App.css";
+import BlogSection from "./components/BlogSection";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <ScrollToTopOnMount />
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/blog" element={<BlogSection />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/portfolio/:id" element={<PortfolioDetails />} />
         <Route path="/services" element={<Services />} />
