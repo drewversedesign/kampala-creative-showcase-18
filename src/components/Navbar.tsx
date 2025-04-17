@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { scrollToSection } from "../utils/smoothScroll";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,6 +18,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,10 +36,18 @@ const Navbar = () => {
 
   const handleNavigation = (sectionId: string) => {
     if (sectionId === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
+      if (location.pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        navigate('/');
+      }
+    } else if (location.pathname === '/') {
       scrollToSection(sectionId);
+    } else {
+      // If not on homepage, navigate to homepage first and then scroll to section
+      navigate(`/?section=${sectionId}`);
     }
+    
     if (isMenuOpen) setIsMenuOpen(false);
   };
 
@@ -100,7 +111,7 @@ const Navbar = () => {
               <NavigationMenuItem>
                 <NavigationMenuLink 
                   className={navigationMenuTriggerStyle()}
-                  onClick={() => handleNavigation('blog')}
+                  onClick={() => navigate('/blog')}
                 >
                   Blog
                 </NavigationMenuLink>
@@ -154,7 +165,7 @@ const Navbar = () => {
             </button>
             <button
               className="text-drewverse-dark hover:text-drewverse-primary font-medium transition-colors py-2 text-left"
-              onClick={() => handleNavigation('blog')}
+              onClick={() => navigate('/blog')}
             >
               Blog
             </button>

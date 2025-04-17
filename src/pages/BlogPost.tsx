@@ -9,10 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet';
 
 const BlogPost = () => {
-  const { slug } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   
-  // Use the exported blogPosts from BlogSection.tsx
+  // Find the blog post from the imported blogPosts array
   const post = blogPosts.find((post) => post.slug === slug);
   
   if (!post) {
@@ -120,7 +120,7 @@ const BlogPost = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Tag size={16} />
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {post.keywords.map((keyword, index) => (
                       <span 
                         key={index}

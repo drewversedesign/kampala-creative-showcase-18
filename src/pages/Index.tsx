@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
@@ -10,12 +11,25 @@ import WhyChooseUsSection from '../components/WhyChooseUsSection';
 import PortfolioSection from '../components/PortfolioSection';
 import CtaSection from '../components/CtaSection';
 import FooterSection from '../components/FooterSection';
+import { scrollToSection } from '../utils/smoothScroll';
 
 const Index: React.FC = () => {
-  // This ensures the page starts from the top with the navbar visible
+  const location = useLocation();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+    // Check if we need to scroll to a specific section
+    const urlParams = new URLSearchParams(location.search);
+    const section = urlParams.get('section');
+    
+    if (section) {
+      // Slight delay to ensure the page has fully loaded
+      setTimeout(() => {
+        scrollToSection(section);
+      }, 100);
+    }
+  }, [location]);
 
   return (
     <div className="overflow-x-hidden">
