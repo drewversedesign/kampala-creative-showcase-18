@@ -10,17 +10,14 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-            <span className="text-gradient bg-gradient-to-r from-drewverse-primary to-orange-400 bg-clip-text text-transparent">
-              Digital Solutions
-            </span>{' '}
-            <div className="inline-flex items-center gap-2">
-              for 
-              <Sparkles className="text-drewverse-primary w-8 h-8 animate-pulse" />
-            </div>{' '}
-            <span className="block md:inline text-gray-900">Growing Brands</span>
+            Crafting World-Class Web Design Solutions in Uganda
           </h1>
+          <h2 className="text-2xl md:text-3xl text-drewverse-primary font-semibold">
+            Uganda's Premier Digital Agency: Transforming Brands Online
+          </h2>
           <p className="text-xl text-gray-600 max-w-[600px]">
-            At DrewVerse Design, we transform your digital vision into powerful, engaging experiences that drive business growth.
+            DrewVerse Design is Uganda's trusted digital agency delivering professional web design, 
+            branding, and development services that drive business growth.
           </p>
           <div className="flex gap-4">
             <Link 
@@ -41,7 +38,7 @@ const HeroSection = () => {
           <div className="relative">
             <img 
               src="/lovable-uploads/f3a7c8f8-4cc6-4005-ac9c-347d76a16bdf.png" 
-              alt="DrewVerse Design Team Collaboration" 
+              alt="DrewVerse Design - Uganda's Leading Web Design Agency" 
               className="w-full max-w-[600px] h-auto rounded-lg shadow-lg object-cover relative z-10"
             />
             <div className="absolute inset-0 border-4 border-orange-500 rounded-lg z-0" style={{animation: 'border-pulse 3s ease-in-out infinite'}}></div>

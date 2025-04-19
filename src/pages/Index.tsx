@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -34,20 +35,26 @@ const Index: React.FC = () => {
   return (
     <div className="overflow-x-hidden">
       <Helmet>
-        <title>DrewVerse Design | Premium Digital Agency in Uganda</title>
-        <meta name="description" content="Transform your digital presence with Uganda's leading digital agency. Expert web design, branding, and UI/UX solutions for forward-thinking businesses." />
-        <meta name="keywords" content="digital agency Uganda, web design Kampala, UI/UX design, branding agency" />
+        <title>Best Web Design Company in Uganda | DrewVerse Design</title>
+        <meta name="description" content="DrewVerse Design - Uganda's leading web design and digital agency. Professional web development, branding, and UI/UX solutions for forward-thinking businesses in East Africa." />
+        <meta name="keywords" content="web design Uganda, web development Kampala, UI/UX design, digital agency Uganda, professional web design, business website development" />
         
         {/* Open Graph Tags */}
-        <meta property="og:title" content="DrewVerse Design | Premium Digital Agency in Uganda" />
-        <meta property="og:description" content="Transform your digital presence with Uganda's leading digital agency. Expert web design, branding, and UI/UX solutions." />
+        <meta property="og:title" content="Best Web Design Company in Uganda | DrewVerse Design" />
+        <meta property="og:description" content="Transform your digital presence with Uganda's leading web design agency. Expert web development, branding, and UI/UX solutions for businesses." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://drewversedesign.online" />
         
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="DrewVerse Design | Premium Digital Agency in Uganda" />
-        <meta name="twitter:description" content="Transform your digital presence with Uganda's leading digital agency." />
+        <meta name="twitter:title" content="Best Web Design Company in Uganda | DrewVerse Design" />
+        <meta name="twitter:description" content="Uganda's premier web design and digital agency delivering world-class solutions." />
+
+        {/* Additional SEO Meta Tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="geo.region" content="UG" />
+        <meta name="geo.placename" content="Kampala" />
+        <link rel="canonical" href="https://drewversedesign.online" />
       </Helmet>
 
       <Navbar />
