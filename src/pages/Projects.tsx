@@ -21,6 +21,11 @@ const ProjectsPage = () => {
     ? projects.find(p => p.id === id) || projects[0]
     : projects[0];
 
+  // Find current project index to determine next and previous projects
+  const currentIndex = projects.findIndex(p => p.id === currentProject.id);
+  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
