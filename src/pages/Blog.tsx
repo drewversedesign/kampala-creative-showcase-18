@@ -11,9 +11,9 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>Blog | DrewVerse Design</title>
-        <meta name="description" content="Explore our latest insights on design, development, and digital transformation" />
-        <meta name="keywords" content="design blog, UX insights, web development blog, Uganda tech blog" />
+        <title>Digital Design Blog | DrewVerse Design Insights</title>
+        <meta name="description" content="Expert insights on web design, digital marketing, and UI/UX trends from Uganda's leading digital agency. Stay updated with our latest articles." />
+        <meta name="keywords" content="digital design blog, web development insights, UI/UX trends Uganda" />
       </Helmet>
 
       <Navbar />

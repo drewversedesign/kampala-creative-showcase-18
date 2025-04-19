@@ -7,6 +7,7 @@ import ScrollToTopOnMount from '@/components/ScrollToTopOnMount';
 import Navbar from '@/components/Navbar';
 import FooterSection from '@/components/FooterSection';
 import { usePortfolioProjects } from '@/hooks/use-query';
+import { Helmet } from 'react-helmet';
 
 const ProjectsPage = () => {
   const { data: projects, isLoading, error } = usePortfolioProjects();
@@ -16,17 +17,18 @@ const ProjectsPage = () => {
   if (error) return <div>Error loading project</div>;
   if (!projects?.length) return <div>No projects found</div>;
 
-  // Find the project with the matching ID, or default to the first project if ID not found
   const currentProject = id 
     ? projects.find(p => p.id === id) || projects[0]
     : projects[0];
-    
-  const currentIndex = projects.findIndex(p => p.id === currentProject.id);
-  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
-  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>{currentProject.title} | DrewVerse Design Portfolio</title>
+        <meta name="description" content={`Explore our ${currentProject.title} project - A showcase of DrewVerse Design's expertise in digital solutions and creative design.`} />
+        <meta name="keywords" content={`${currentProject.title}, portfolio, digital design Uganda, web development case study`} />
+      </Helmet>
+
       <Navbar />
       <ScrollToTopOnMount />
       
