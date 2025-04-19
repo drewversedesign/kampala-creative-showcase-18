@@ -1,3 +1,4 @@
+
 import React, { KeyboardEvent } from 'react';
 import { useSwipe } from '../hooks/use-swipe';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -10,22 +11,49 @@ import { BlogCardContainer } from './blog/BlogCardContainer';
 import { blogPosts } from '../data/blogData';
 import { toast } from '@/components/ui/sonner';
 import { BlogCardData } from '../data/types';
-
-const blogCardData = blogPosts.map((post, index) => ({
-  id: index,
-  title: post.title,
-  category: post.category,
-  image: post.image,
-  description: post.excerpt,
-  excerpt: post.excerpt,
-  date: post.date,
-  readTime: post.readTime,
-  imageUrl: post.image
-}));
+import { useBlogPosts } from '@/hooks/use-query';
+import { useNavigate } from 'react-router-dom';
 
 export default function BlogCardStack() {
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   const { isBookmarked, toggleBookmark } = useBookmarks<BlogCardData>('blog-bookmarks');
+  const { data: dbPosts, isLoading } = useBlogPosts();
+
+  // Combine database posts with static posts
+  const blogCardData = React.useMemo(() => {
+    // Start with static posts as fallback
+    const staticCards = blogPosts.map((post, index) => ({
+      id: index,
+      title: post.title,
+      category: post.category,
+      image: post.image,
+      description: post.excerpt,
+      excerpt: post.excerpt,
+      date: post.date,
+      readTime: post.readTime,
+      imageUrl: post.image,
+      slug: post.id
+    }));
+
+    // If database posts are loaded, prioritize them
+    if (dbPosts && dbPosts.length > 0) {
+      return dbPosts.slice(0, 5).map((post, index) => ({
+        id: index,
+        title: post.title,
+        category: post.category,
+        image: post.image_url || '/placeholder.svg',
+        description: post.excerpt,
+        excerpt: post.excerpt,
+        date: post.published_at || post.created_at,
+        readTime: "5 min read",
+        imageUrl: post.image_url || '/placeholder.svg',
+        slug: post.slug
+      }));
+    }
+
+    return staticCards;
+  }, [dbPosts]);
   
   const { 
     activeCardIndex, 
@@ -61,7 +89,12 @@ export default function BlogCardStack() {
       case 'Enter':
       case ' ': // Space key
         e.preventDefault();
-        goToNextCard();
+        const activeCard = blogCardData[activeCardIndex];
+        if (activeCard && activeCard.slug) {
+          navigate(`/blog/${activeCard.slug}`);
+        } else {
+          goToNextCard();
+        }
         break;
       default:
         break;
@@ -87,6 +120,24 @@ export default function BlogCardStack() {
     toast.success(`Post ${action} bookmarks`);
   };
 
+  const handleCardClick = (card: BlogCardData) => {
+    if (card.slug) {
+      navigate(`/blog/${card.slug}`);
+    } else {
+      goToNextCard();
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="relative w-full overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-[#1A1F2C]">
+        <div className="max-w-7xl mx-auto text-center text-white">
+          <p>Loading blog posts...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-[#1A1F2C]">
       <div className="max-w-7xl mx-auto">
@@ -110,7 +161,7 @@ export default function BlogCardStack() {
               velocityX={velocity.x}
               isBookmarked={isBookmarked}
               onToggleBookmark={handleToggleBookmark}
-              onClick={goToNextCard}
+              onClick={() => handleCardClick(card)}
             />
           ))}
         </BlogCardContainer>

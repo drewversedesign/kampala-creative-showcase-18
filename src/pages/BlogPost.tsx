@@ -1,19 +1,52 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import FooterSection from '../components/FooterSection';
 import { useParams, useNavigate } from 'react-router-dom';
 import { blogPosts } from '../data/blogData';
-import { ArrowLeft, Calendar, Tag, User } from 'lucide-react';
+import { ArrowLeft, Calendar, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet';
+import { useBlogPosts } from '@/hooks/use-query';
+import { toast } from '@/components/ui/sonner';
 
 const BlogPost = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { data: dbPosts, isLoading, error } = useBlogPosts();
   
-  // Find the blog post from the imported blogPosts array
-  const post = blogPosts.find((post) => post.id === slug);
+  // First try to find the post from the database
+  const dbPost = dbPosts?.find((post) => post.slug === id);
+  
+  // If not found in database, fallback to static data
+  const staticPost = blogPosts.find((post) => post.id === id || post.slug === id);
+  
+  // Use database post if available, otherwise use static post
+  const post = dbPost || staticPost;
+  
+  useEffect(() => {
+    if (error) {
+      toast.error("Error loading blog posts");
+      console.error("Error loading blog posts:", error);
+    }
+  }, [error]);
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <main className="pt-24 pb-16">
+          <div className="container-wide">
+            <div className="text-center">
+              <h1 className="heading-lg mb-4">Loading...</h1>
+              <p className="text-gray-600 mb-8">Please wait while we load the blog post.</p>
+            </div>
+          </div>
+        </main>
+        <FooterSection />
+      </div>
+    );
+  }
   
   if (!post) {
     return (
@@ -41,12 +74,12 @@ const BlogPost = () => {
     "@type": "BlogPosting",
     "headline": post.title,
     "description": post.excerpt,
-    "image": post.image,
+    "image": post.image || post.image_url,
     "author": {
       "@type": "Person",
-      "name": post.author
+      "name": post.author || "DrewVerse Design"
     },
-    "datePublished": post.date,
+    "datePublished": post.date || post.published_at,
     "publisher": {
       "@type": "Organization",
       "name": "DrewVerse Design",
@@ -55,6 +88,24 @@ const BlogPost = () => {
         "url": "https://drewversedesign.online/logo.png"
       }
     }
+  };
+
+  // Handle different post data structures (database vs static)
+  const getPostImage = () => post.image || post.image_url;
+  const getPostDate = () => post.date || post.published_at;
+  const getPostAuthor = () => post.author || "DrewVerse Design";
+  const getPostContent = () => {
+    if (post.content && Array.isArray(post.content)) {
+      // Static content structure
+      return post.content;
+    } else if (post.content && typeof post.content === 'string') {
+      // Database content structure (convert to compatible format)
+      return [
+        { type: "introduction", text: post.excerpt || "" },
+        { type: "section", title: "Article", content: post.content }
+      ];
+    }
+    return [];
   };
 
   return (
@@ -66,14 +117,14 @@ const BlogPost = () => {
         {/* Open Graph tags */}
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
-        <meta property="og:image" content={post.image} />
+        <meta property="og:image" content={getPostImage()} />
         <meta property="og:type" content="article" />
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
-        <meta name="twitter:image" content={post.image} />
+        <meta name="twitter:image" content={getPostImage()} />
         
         <script type="application/ld+json">
           {JSON.stringify(articleStructuredData)}
@@ -95,7 +146,7 @@ const BlogPost = () => {
           <article className="bg-white rounded-2xl shadow-sm overflow-hidden">
             <div className="relative aspect-video w-full overflow-hidden">
               <img 
-                src={post.image}
+                src={getPostImage()}
                 alt={post.title}
                 className="w-full h-full object-cover"
               />
@@ -104,22 +155,22 @@ const BlogPost = () => {
               </div>
             </div>
             
-            <div className="p-8">
-              <h1 className="heading-lg mb-4">{post.title}</h1>
+            <div className="p-4 sm:p-8">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">{post.title}</h1>
               
               <div className="flex flex-wrap gap-4 text-gray-600 text-sm mb-8">
                 <div className="flex items-center gap-2">
                   <Calendar size={16} />
-                  <time dateTime={post.date}>{post.date}</time>
+                  <time dateTime={getPostDate()}>{getPostDate()}</time>
                 </div>
                 <div className="flex items-center gap-2">
                   <User size={16} />
-                  <span>{post.author}</span>
+                  <span>{getPostAuthor()}</span>
                 </div>
               </div>
               
               <div className="prose prose-lg prose-gray max-w-none">
-                {post.content.map((section, index) => {
+                {getPostContent().map((section, index) => {
                   if (section.type === "introduction") {
                     return (
                       <p key={`intro-${index}`} className="text-gray-600 leading-relaxed text-lg font-medium">
@@ -146,7 +197,7 @@ const BlogPost = () => {
                     return (
                       <div key={`cta-${index}`} className="mt-8 p-6 bg-drewverse-primary/10 rounded-xl text-center">
                         <p className="text-drewverse-primary font-medium">{section.text}</p>
-                        <Button className="mt-4">Contact Us</Button>
+                        <Button className="mt-4" onClick={() => navigate('/contact')}>Contact Us</Button>
                       </div>
                     );
                   }
