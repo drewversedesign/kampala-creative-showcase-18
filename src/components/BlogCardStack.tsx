@@ -33,7 +33,7 @@ export default function BlogCardStack() {
       date: post.date,
       readTime: post.readTime,
       imageUrl: post.image,
-      slug: post.id
+      slug: post.id || post.slug // Ensure slug is properly set
     }));
 
     // If database posts are loaded, prioritize them
@@ -48,7 +48,7 @@ export default function BlogCardStack() {
         date: post.published_at || post.created_at,
         readTime: "5 min read",
         imageUrl: post.image_url || '/placeholder.svg',
-        slug: post.slug
+        slug: post.slug // Use the database post slug
       }));
     }
 

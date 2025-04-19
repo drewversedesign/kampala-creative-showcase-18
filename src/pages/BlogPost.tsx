@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import FooterSection from '../components/FooterSection';
@@ -9,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet';
 import { useBlogPosts } from '@/hooks/use-query';
 import { toast } from '@/components/ui/sonner';
+import { getPostImage, getPostDate, getPostAuthor, getPostContent, UnifiedBlogPost } from '@/utils/blogHelpers';
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -74,12 +74,12 @@ const BlogPost = () => {
     "@type": "BlogPosting",
     "headline": post.title,
     "description": post.excerpt,
-    "image": post.image || post.image_url,
+    "image": getPostImage(post),
     "author": {
       "@type": "Person",
-      "name": post.author || "DrewVerse Design"
+      "name": getPostAuthor(post)
     },
-    "datePublished": post.date || post.published_at,
+    "datePublished": getPostDate(post),
     "publisher": {
       "@type": "Organization",
       "name": "DrewVerse Design",
@@ -88,24 +88,6 @@ const BlogPost = () => {
         "url": "https://drewversedesign.online/logo.png"
       }
     }
-  };
-
-  // Handle different post data structures (database vs static)
-  const getPostImage = () => post.image || post.image_url;
-  const getPostDate = () => post.date || post.published_at;
-  const getPostAuthor = () => post.author || "DrewVerse Design";
-  const getPostContent = () => {
-    if (post.content && Array.isArray(post.content)) {
-      // Static content structure
-      return post.content;
-    } else if (post.content && typeof post.content === 'string') {
-      // Database content structure (convert to compatible format)
-      return [
-        { type: "introduction", text: post.excerpt || "" },
-        { type: "section", title: "Article", content: post.content }
-      ];
-    }
-    return [];
   };
 
   return (
@@ -117,14 +99,14 @@ const BlogPost = () => {
         {/* Open Graph tags */}
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
-        <meta property="og:image" content={getPostImage()} />
+        <meta property="og:image" content={getPostImage(post)} />
         <meta property="og:type" content="article" />
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
-        <meta name="twitter:image" content={getPostImage()} />
+        <meta name="twitter:image" content={getPostImage(post)} />
         
         <script type="application/ld+json">
           {JSON.stringify(articleStructuredData)}
@@ -146,7 +128,7 @@ const BlogPost = () => {
           <article className="bg-white rounded-2xl shadow-sm overflow-hidden">
             <div className="relative aspect-video w-full overflow-hidden">
               <img 
-                src={getPostImage()}
+                src={getPostImage(post)}
                 alt={post.title}
                 className="w-full h-full object-cover"
               />
@@ -161,16 +143,16 @@ const BlogPost = () => {
               <div className="flex flex-wrap gap-4 text-gray-600 text-sm mb-8">
                 <div className="flex items-center gap-2">
                   <Calendar size={16} />
-                  <time dateTime={getPostDate()}>{getPostDate()}</time>
+                  <time dateTime={getPostDate(post)}>{getPostDate(post)}</time>
                 </div>
                 <div className="flex items-center gap-2">
                   <User size={16} />
-                  <span>{getPostAuthor()}</span>
+                  <span>{getPostAuthor(post)}</span>
                 </div>
               </div>
               
               <div className="prose prose-lg prose-gray max-w-none">
-                {getPostContent().map((section, index) => {
+                {getPostContent(post).map((section, index) => {
                   if (section.type === "introduction") {
                     return (
                       <p key={`intro-${index}`} className="text-gray-600 leading-relaxed text-lg font-medium">

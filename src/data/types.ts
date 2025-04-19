@@ -27,4 +27,5 @@ export interface BlogCardData {
   date: string;
   readTime: string;
   imageUrl: string;
+  slug?: string; // Add the slug property
 }
