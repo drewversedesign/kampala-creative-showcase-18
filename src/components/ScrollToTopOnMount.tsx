@@ -2,14 +2,12 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-/**
- * ScrollToTopOnMount component
- * Automatically scrolls to the top of the page when the route changes or when the component mounts
- */
 const ScrollToTopOnMount = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    console.log('ScrollToTopOnMount triggered for path:', pathname);
+    
     // Ensure scroll to top works consistently across different browsers
     window.scrollTo({
       top: 0,
