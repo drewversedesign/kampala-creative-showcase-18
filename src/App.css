@@ -10,6 +10,12 @@ html {
   scroll-behavior: auto !important;
 }
 
+/* Force scroll to top on page load */
+html, body {
+  scroll-padding-top: 0;
+  overflow-anchor: none;
+}
+
 /* Accessibility - focus styles */
 :focus-visible {
   outline: 2px solid #F97316;

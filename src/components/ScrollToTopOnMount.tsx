@@ -28,19 +28,21 @@ const ScrollToTopOnMount = () => {
       console.log('Scroll top executed with multiple methods');
     };
 
-    // Execute scroll on both initial mount and route changes
-    if (isInitialMount.current) {
-      // On initial page load
-      isInitialMount.current = false;
-      // Use timeout to ensure DOM is fully loaded
-      setTimeout(scrollToTop, 0);
-    } else {
-      // On subsequent navigation
-      scrollToTop();
-    }
+    // Execute scroll immediately and with delays to ensure it works
+    scrollToTop(); // Immediate execution
     
-    // Add an additional delayed scroll for problematic cases
+    // Multiple delayed attempts with increasing timeouts
+    setTimeout(scrollToTop, 10);
+    setTimeout(scrollToTop, 50);
     setTimeout(scrollToTop, 100);
+    setTimeout(scrollToTop, 500);
+    
+    // For the initial page load only, add extra attempts
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      // Additional attempts specifically for first load
+      setTimeout(scrollToTop, 1000);
+    }
   }, [pathname]);
 
   return null;
