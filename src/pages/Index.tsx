@@ -18,7 +18,11 @@ const Index: React.FC = () => {
   const location = useLocation();
   
   useEffect(() => {
+    // Force scroll to top on homepage load
+    console.log('Index component mounted, forcing scroll to top');
     window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     
     // Check if we need to scroll to a specific section
     const urlParams = new URLSearchParams(location.search);
