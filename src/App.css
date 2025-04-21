@@ -14,6 +14,14 @@ html {
 html, body {
   scroll-padding-top: 0;
   overflow-anchor: none;
+  scroll-behavior: auto !important;
+  height: auto;
+  overflow: auto;
+}
+
+/* Reset position for all elements */
+* {
+  scroll-margin-top: 0;
 }
 
 /* Accessibility - focus styles */

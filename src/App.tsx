@@ -1,6 +1,6 @@
 
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import Index from './pages/Index';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -14,7 +14,17 @@ import ScrollToTopOnMount from './components/ScrollToTopOnMount';
 function App() {
   const location = useLocation();
   
-  // Add a root-level scroll reset
+  // useLayoutEffect runs synchronously after DOM mutations but before browser paint
+  useLayoutEffect(() => {
+    console.log('App-level useLayoutEffect scroll reset for path:', location.pathname);
+    
+    // Force scroll to top immediately
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [location.pathname]);
+  
+  // Regular useEffect for additional attempts
   useEffect(() => {
     console.log('App-level scroll reset for path:', location.pathname);
     
@@ -23,13 +33,19 @@ function App() {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
     
-    // Additional delayed attempt
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      console.log('App-level delayed scroll reset executed');
-    }, 100);
+    // Multiple delayed attempts
+    const timeoutIds = [50, 100, 200].map(delay => 
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        console.log(`App-level scroll reset executed after ${delay}ms`);
+      }, delay)
+    );
+    
+    return () => {
+      timeoutIds.forEach(id => clearTimeout(id));
+    };
   }, [location.pathname]);
 
   return (

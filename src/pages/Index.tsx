@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Navbar from '../components/Navbar';
@@ -17,6 +17,15 @@ import { scrollToSection } from '../utils/smoothScroll';
 const Index: React.FC = () => {
   const location = useLocation();
   
+  // Use useLayoutEffect to ensure this runs synchronously before browser paint
+  useLayoutEffect(() => {
+    // Force scroll to top on homepage load - this runs synchronously
+    console.log('Index component useLayoutEffect - forcing scroll to top');
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+  
   useEffect(() => {
     // Force scroll to top on homepage load
     console.log('Index component mounted, forcing scroll to top');
@@ -33,6 +42,19 @@ const Index: React.FC = () => {
       setTimeout(() => {
         scrollToSection(section);
       }, 100);
+    } else {
+      // Additional delayed scroll attempts if not scrolling to a specific section
+      const timeoutIds = [100, 300, 500].map(delay =>
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }, delay)
+      );
+      
+      return () => {
+        timeoutIds.forEach(id => clearTimeout(id));
+      };
     }
   }, [location]);
 

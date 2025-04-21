@@ -1,13 +1,15 @@
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const ScrollToTopOnMount = () => {
   const { pathname } = useLocation();
   const isInitialMount = useRef(true);
 
-  useEffect(() => {
-    console.log('ScrollToTopOnMount triggered for path:', pathname);
+  // useLayoutEffect runs synchronously after DOM mutations but before browser paint
+  // This ensures scroll resets happen before the user sees anything
+  useLayoutEffect(() => {
+    console.log('ScrollToTopOnMount useLayoutEffect triggered for path:', pathname);
     
     // Force scroll reset using multiple methods for cross-browser compatibility
     const scrollToTop = () => {
@@ -28,21 +30,42 @@ const ScrollToTopOnMount = () => {
       console.log('Scroll top executed with multiple methods');
     };
 
-    // Execute scroll immediately and with delays to ensure it works
-    scrollToTop(); // Immediate execution
+    // Execute scroll immediately
+    scrollToTop();
+    
+    // Return a cleanup function that also scrolls to top when unmounting
+    return () => {
+      scrollToTop();
+    };
+  }, [pathname]); // Only run when pathname changes
+
+  // Also use regular useEffect for additional attempts with delays
+  useEffect(() => {
+    console.log('ScrollToTopOnMount regular useEffect triggered for path:', pathname);
+    
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
     
     // Multiple delayed attempts with increasing timeouts
-    setTimeout(scrollToTop, 10);
-    setTimeout(scrollToTop, 50);
-    setTimeout(scrollToTop, 100);
-    setTimeout(scrollToTop, 500);
+    const timeouts = [10, 50, 100, 200, 500].map(delay => 
+      setTimeout(scrollToTop, delay)
+    );
     
     // For the initial page load only, add extra attempts
     if (isInitialMount.current) {
       isInitialMount.current = false;
       // Additional attempts specifically for first load
-      setTimeout(scrollToTop, 1000);
+      timeouts.push(setTimeout(scrollToTop, 1000));
+      timeouts.push(setTimeout(scrollToTop, 2000));
     }
+    
+    // Clean up all timeouts on unmount
+    return () => {
+      timeouts.forEach(timeoutId => clearTimeout(timeoutId));
+    };
   }, [pathname]);
 
   return null;
